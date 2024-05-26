@@ -17,11 +17,11 @@ public class Wallet
     public string? FullName { get; set; }
     
     [Required]
-    [EmailAddress]
     [Column("cpf")]
     public string? Cpf { get; set; }
     
     [Required]
+    [EmailAddress]
     [Column("email")]
     public string? Email { get; set; }
     
