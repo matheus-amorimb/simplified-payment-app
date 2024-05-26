@@ -26,6 +26,10 @@ public class Wallet
     public string? Email { get; set; }
     
     [Required]
-    [Column("type")]
-    public string? Type { get; set; }
+    [Column("wallet_type_id")]
+    public int WalletTypeId { get; set; }
+    
+    [JsonIgnore]
+    [ForeignKey("WalletTypeId")]
+    public WalletType? WalletType { get; set; }
 }

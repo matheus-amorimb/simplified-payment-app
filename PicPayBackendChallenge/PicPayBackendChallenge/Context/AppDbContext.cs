@@ -9,4 +9,14 @@ public class AppDbContext : DbContext
     {}
     
     public DbSet<Wallet>? Wallet { get; set; }
+    public DbSet<Transaction> Transaction { get; set; }
+    public DbSet<WalletType> WalletType { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<WalletType>().HasData(
+            new WalletType {Id = 1, Description = "User"},
+            new WalletType {Id = 2, Description = "Merchant"}
+        );
+    }
 }
