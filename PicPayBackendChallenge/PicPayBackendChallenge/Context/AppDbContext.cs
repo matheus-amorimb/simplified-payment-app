@@ -18,5 +18,13 @@ public class AppDbContext : DbContext
             new WalletType {Id = 1, Description = "User"},
             new WalletType {Id = 2, Description = "Merchant"}
         );
+
+        modelBuilder.Entity<Wallet>()
+            .HasIndex(e => e.Email)
+            .IsUnique();       
+        
+        modelBuilder.Entity<Wallet>()
+            .HasIndex(e => e.Cpf)
+            .IsUnique();
     }
 }

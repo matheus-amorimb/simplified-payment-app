@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
+using Microsoft.EntityFrameworkCore;
 
 namespace PicPayBackendChallenge.Models;
 
@@ -24,6 +25,9 @@ public class Wallet
     [EmailAddress]
     [Column("email")]
     public string? Email { get; set; }
+    
+    [JsonIgnore]
+    public double Balance { get; set; } = 0.00;
     
     [Required]
     [Column("wallet_type_id")]
