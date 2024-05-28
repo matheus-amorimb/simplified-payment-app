@@ -20,8 +20,31 @@ public class WalletService : IWalletService
 
     public async Task<Wallet> CreateWallet(Wallet wallet)
     {
+
+        IEnumerable<Wallet> wallets = await this.GetWallets();
+
+        if (IsCpfInUse(wallets, wallet.Cpf))
+        {
+            throw new Exception("Email is already in use");
+        }
+        
+        if (IsEmailInUse(wallets, wallet.Email))
+        {
+            throw new Exception("Cpf is already in use");
+        }
+        
         var response = await _walletRepository.Create(wallet);
 
         return response;
+    }
+
+    public bool IsEmailInUse(IEnumerable<Wallet> wallets, string email)
+    {   
+        return wallets.Any(wallet => wallet.Email == email);
+    }
+    
+    public bool IsCpfInUse(IEnumerable<Wallet> wallets, string cpf)
+    {
+        return wallets.Any(wallet => wallet.Cpf == cpf);
     }
 }

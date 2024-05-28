@@ -25,8 +25,15 @@ public class WalletController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<Wallet>> CreateWallet([FromBody] Wallet wallet)
     {
-        var walletCreated = await _walletService.CreateWallet(wallet);
-        
-        return Ok(wallet);
+        try
+        {
+            var walletCreated = await _walletService.CreateWallet(wallet);
+            return Ok(wallet);
+
+        }
+        catch (Exception e)
+        {
+            return BadRequest("Failed to create wallet: " + e.Message);
+        }
     }
 }
