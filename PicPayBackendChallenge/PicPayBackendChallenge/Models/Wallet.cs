@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
+using PicPayBackendChallenge.Validation;
 
 namespace PicPayBackendChallenge.Models;
 
@@ -19,6 +20,7 @@ public class Wallet
     
     [Required]
     [Column("cpf")]
+    [Cpf]
     public string? Cpf { get; set; }
     
     [Required]
