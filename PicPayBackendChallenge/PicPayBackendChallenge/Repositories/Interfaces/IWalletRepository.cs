@@ -9,6 +9,7 @@ public interface IWalletRepository
     Task<Wallet> GetById(Guid id);
 
     Task<Wallet> Create(Wallet wallet);
+    
     Task<Wallet> Update(Guid id, Wallet wallet);
     
 }

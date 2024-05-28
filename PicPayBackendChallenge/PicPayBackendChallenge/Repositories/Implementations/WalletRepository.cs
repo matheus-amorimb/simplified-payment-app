@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using PicPayBackendChallenge.Context;
 using PicPayBackendChallenge.Models;
 using PicPayBackendChallenge.Repositories.Interfaces;
@@ -13,9 +14,10 @@ public class WalletRepository : IWalletRepository
         _context = context;
     }
 
-    public Task<IEnumerable<Wallet>> GetAll()
+    public async Task<IEnumerable<Wallet>> GetAll()
     {
-        throw new NotImplementedException();
+        IEnumerable<Wallet> wallets = await _context.Wallet.FromSql($"SELECT * FROM Wallet").ToListAsync();
+        return wallets;
     }
 
     public Task<Wallet> GetById(Guid id)

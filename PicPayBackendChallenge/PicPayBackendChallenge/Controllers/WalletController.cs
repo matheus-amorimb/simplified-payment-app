@@ -14,6 +14,13 @@ public class WalletController : ControllerBase
     {
         _walletService = walletService;
     }
+
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<Wallet>>> GetWallets()
+    {
+        var wallets = await _walletService.GetWallets();
+        return Ok(wallets);
+    }
     
     [HttpPost]
     public async Task<ActionResult<Wallet>> CreateWallet([FromBody] Wallet wallet)
