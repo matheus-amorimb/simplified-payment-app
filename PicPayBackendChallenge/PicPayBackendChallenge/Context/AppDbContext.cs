@@ -9,7 +9,7 @@ public class AppDbContext : DbContext
     {}
     
     public DbSet<Wallet>? Wallet { get; set; }
-    public DbSet<Transaction> Transaction { get; set; }
+    public DbSet<Transaction?> Transaction { get; set; }
     public DbSet<WalletType> WalletType { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

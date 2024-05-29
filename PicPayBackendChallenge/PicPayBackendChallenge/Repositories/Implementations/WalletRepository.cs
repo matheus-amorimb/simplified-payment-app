@@ -33,8 +33,10 @@ public class WalletRepository : IWalletRepository
         return wallet;
     }
 
-    public Task<Wallet> Update(Guid id, Wallet wallet)
+    public async Task<Wallet> Update(Wallet wallet)
     {
-        throw new NotImplementedException();
+        _context.Wallet.Update(wallet);
+        await _context.SaveChangesAsync();
+        return wallet;
     }
 }

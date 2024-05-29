@@ -27,6 +27,6 @@ public class Transaction
     [Required] 
     [JsonIgnore]
     [Column("timestamp")]
-    public DateTime Timestamp { get; set; } = DateTime.Now;
+    public DateTime Timestamp { get; set; } = DateTime.UtcNow;
 
 }

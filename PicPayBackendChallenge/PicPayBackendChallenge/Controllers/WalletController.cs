@@ -28,7 +28,7 @@ public class WalletController : ControllerBase
         try
         {
             var walletCreated = await _walletService.CreateWallet(wallet);
-            return Ok(wallet);
+            return Ok(walletCreated);
 
         }
         catch (Exception e)

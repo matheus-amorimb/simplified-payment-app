@@ -44,6 +44,20 @@ public class WalletService : IWalletService
         return response;
     }
 
+    public async Task<Wallet> Uptade(Wallet wallet)
+    {
+        Wallet walletToUptade = await this.GetWalletById(wallet.WalletId);    
+    
+        if (walletToUptade == null)
+        {
+            throw new BadHttpRequestException("");
+        }
+
+        await _walletRepository.Update(wallet);
+
+        return wallet;
+    }
+
     public bool IsEmailInUse(IEnumerable<Wallet> wallets, string email)
     {   
         return wallets.Any(wallet => wallet.Email == email);

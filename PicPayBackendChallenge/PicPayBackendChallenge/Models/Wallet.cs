@@ -10,7 +10,6 @@ namespace PicPayBackendChallenge.Models;
 public class Wallet
 {
     [Key]
-    [JsonIgnore]
     [Column("wallet_id")]
     public Guid WalletId { get; set; }
     
@@ -20,7 +19,7 @@ public class Wallet
     
     [Required]
     [Column("cpf")]
-    [Cpf]
+    // [Cpf]
     public string? Cpf { get; set; }
     
     [Required]
@@ -28,7 +27,6 @@ public class Wallet
     [Column("email")]
     public string? Email { get; set; }
     
-    [JsonIgnore]
     public double Balance { get; set; } = 0.00;
     
     [Required]

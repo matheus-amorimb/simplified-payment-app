@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PicPayBackendChallenge.Dtos;
+using PicPayBackendChallenge.Models;
+using PicPayBackendChallenge.Services;
 
 namespace PicPayBackendChallenge.Controllers;
 
@@ -7,11 +9,26 @@ namespace PicPayBackendChallenge.Controllers;
 [ApiController]
 public class TransactionController : ControllerBase
 {
+    private ITransactionService _transactionService;
 
-    [HttpPost]
-    public async Task<ActionResult<TransactionCreateDto>> NewTransaction([FromBody] TransactionCreateDto transactionCreateDto)
+    public TransactionController(ITransactionService transactionService)
     {
-        
+        _transactionService = transactionService;
+    }
+    
+    [HttpPost]
+    public async Task<ActionResult<Transaction>> NewTransaction([FromBody] Transaction transaction)
+    {
+        try
+        {
+            var walletCreated = await _transactionService.CreateTransaction(transaction);
+            return Ok(walletCreated);
+
+        }
+        catch (Exception e)
+        {
+            return BadRequest("Failed during transaction: " + e.Message);
+        }
     }
     
 }
