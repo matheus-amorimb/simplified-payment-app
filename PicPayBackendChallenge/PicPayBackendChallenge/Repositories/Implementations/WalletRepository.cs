@@ -20,9 +20,9 @@ public class WalletRepository : IWalletRepository
         return wallets;
     }
 
-    public Task<Wallet> GetById(Guid id)
+    public async Task<Wallet> GetById(Guid id)
     {
-        throw new NotImplementedException();
+        return await _context.Wallet.FirstOrDefaultAsync(wallet => wallet.WalletId == id);
     }
 
     public async Task<Wallet> Create(Wallet wallet)
