@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "TmIYEd6vmExc1OwngLveqm73+V+6olrD6BwYG6KXPoryfLhxDnV17TtwElv3almg7qMP4vw9IX6wfpZphtvLow==",
+  "dgSpecHash": "Rcpqk76ULyq4C1QQqCRxxCbhFV9zBpRhug7kWlH8WzCgWM60KbtnXxE0gPchuBf4zGM9NQv8boUaVk239vpLpA==",
   "success": true,
   "projectFilePath": "/home/matheus/matheus-dev/code/projects/picpay-backend-challenge/PicPayBackendChallenge/PicPayBackendChallenge/PicPayBackendChallenge.csproj",
   "expectedPackageFiles": [
+    "/home/matheus/.nuget/packages/automapper/13.0.1/automapper.13.0.1.nupkg.sha512",
     "/home/matheus/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
     "/home/matheus/.nuget/packages/microsoft.aspnetcore.openapi/8.0.0/microsoft.aspnetcore.openapi.8.0.0.nupkg.sha512",
     "/home/matheus/.nuget/packages/microsoft.bcl.asyncinterfaces/6.0.0/microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",
