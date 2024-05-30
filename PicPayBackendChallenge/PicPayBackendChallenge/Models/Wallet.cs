@@ -27,6 +27,7 @@ public class Wallet
     [Column("email")]
     public string? Email { get; set; }
     
+    [Column("balance")]
     public double Balance { get; set; } = 0.00;
     
     [Required]
@@ -36,4 +37,7 @@ public class Wallet
     [JsonIgnore]
     [ForeignKey("WalletTypeId")]
     public WalletType? WalletType { get; set; }
+
+    [NotMapped]
+    public Boolean IsUser => this.WalletTypeId == 1;
 }

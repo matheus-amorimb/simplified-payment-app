@@ -1,6 +1,8 @@
+using PicPayBackendChallenge.Enums;
 using PicPayBackendChallenge.Models;
 using PicPayBackendChallenge.Repositories.Implementations;
 using PicPayBackendChallenge.Repositories.Interfaces;
+using WalletType = PicPayBackendChallenge.Enums.WalletType;
 
 namespace PicPayBackendChallenge.Services;
 
@@ -19,59 +21,51 @@ public class TransactionService : ITransactionService
     public async Task<Transaction> CreateTransaction(Transaction transaction)
     {
         Wallet payerWallet = await _walletService.GetWalletById(transaction.PayerId);
-        
         Wallet payeeWallet = await _walletService.GetWalletById(transaction.PayeeId);
         
         //Check if payer exixts and it is a user
-        this.IsPayerValid(payerWallet, transaction.PayerId);
+        ValidateWallet(payerWallet, nameof(TransactionParticipant.Payer));
+        ValidateWallet(payeeWallet, nameof(TransactionParticipant.Payee));
 
         //check if user balance is equal ou greater than current balance
-        this.IsPayerBalanceValid(payerWallet, transaction.Value);
+        ValidateSufficientBalance(payerWallet, transaction.Value);
         
         //Update Payer balance
-        await this.UpdatePayerBalance(payerWallet, transaction.Value);
-        
+        await UpdateWalletBalance(payerWallet, -transaction.Value);
         //Update Payee balance
-        await this.UpdatePayeeBalance(payeeWallet, transaction.Value);
+        await UpdateWalletBalance(payeeWallet, transaction.Value);
 
         await _transactionRepository.Create(transaction);
 
         return transaction;
     }
 
-    private async Task<Wallet> UpdatePayeeBalance(Wallet payeedIdWallet, float transactionValue)
+    private async Task<Wallet> UpdateWalletBalance(Wallet wallet, float amount)
     {
-        payeedIdWallet.Balance += transactionValue;
-        await _walletService.Uptade(payeedIdWallet);
-        return payeedIdWallet;
+        wallet.Balance += amount;
+        await _walletService.Uptade(wallet);
+        return wallet;
     }   
-
-    private async Task<Wallet> UpdatePayerBalance(Wallet payerIdWallet, float transactionValue)
+    
+    private void ValidateSufficientBalance(Wallet wallet, float amount)
     {
-        payerIdWallet.Balance -= transactionValue;
-        await _walletService.Uptade(payerIdWallet);
-        return payerIdWallet;
-    }
-
-    private void IsPayerBalanceValid(Wallet payerWallet, float transactionValue)
-    {
-        if (payerWallet.Balance < transactionValue)
+        if (wallet.Balance < amount)
         {
             throw new BadHttpRequestException("Payer has insufficient balance for this transaction");
         }
     }
 
-    public void IsPayerValid(Wallet wallet, Guid payerId)
+    public void ValidateWallet(Wallet wallet, string walletType)
     {
         if (wallet == null)
         {
-            throw new BadHttpRequestException("Payer Id doesn't exist");
+            throw new BadHttpRequestException($"{walletType} Id doesn't exist");
         }
-        
-        if (wallet.WalletTypeId == 2)
+
+        if (walletType == nameof(TransactionParticipant.Payer) && !wallet.IsUser)
         {
             throw new BadHttpRequestException("Payer cannot be of the type Merchant");
         }
-        
     }
+    
 }

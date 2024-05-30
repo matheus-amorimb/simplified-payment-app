@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using PicPayBackendChallenge.Context;
+using PicPayBackendChallenge.Mappings;
 using PicPayBackendChallenge.Repositories.Implementations;
 using PicPayBackendChallenge.Repositories.Interfaces;
 using PicPayBackendChallenge.Services;
@@ -15,14 +16,13 @@ builder.Services.AddDbContext<AppDbContext>(optionsBuilder =>
 {
     optionsBuilder.UseNpgsql(postgresConnection);
 });
-
-
-builder.Services.AddControllers();
-
 builder.Services.AddScoped<IWalletRepository, WalletRepository>();
 builder.Services.AddScoped<IWalletService, WalletService>();
 builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
 builder.Services.AddScoped<ITransactionService, TransactionService>();
+builder.Services.AddAutoMapper(typeof(WalletMappingProfile));
+
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
