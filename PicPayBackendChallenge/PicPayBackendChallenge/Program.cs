@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using PicPayBackendChallenge;
 using PicPayBackendChallenge.Context;
 using PicPayBackendChallenge.Mappings;
 using PicPayBackendChallenge.Repositories.Implementations;
@@ -20,19 +21,22 @@ builder.Services.AddScoped<IWalletRepository, WalletRepository>();
 builder.Services.AddScoped<IWalletService, WalletService>();
 builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
 builder.Services.AddScoped<ITransactionService, TransactionService>();
-builder.Services.AddAutoMapper(typeof(WalletMappingProfile));
 
+builder.Services.AddAutoMapper(typeof(WalletMappingProfile));
 builder.Services.AddControllers();
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+// app.UseMiddleware<ExceptionHandlingMiddleware>();
+app.UseExceptionHandler(_ => {});
 app.UseHttpsRedirection();
 app.MapControllers();
 app.Run();
-
