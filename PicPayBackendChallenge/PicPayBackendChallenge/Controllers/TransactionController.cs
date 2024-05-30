@@ -6,7 +6,7 @@ using PicPayBackendChallenge.Services;
 
 namespace PicPayBackendChallenge.Controllers;
 
-[Route("[controller]")]
+[Route("v1/picpay")]
 [ApiController]
 public class TransactionController : ControllerBase
 {
@@ -18,26 +18,29 @@ public class TransactionController : ControllerBase
         _transactionService = transactionService;
         _mapper = mapper;
     }
+
+    [HttpGet("transactions/{client-Id}")]
+    public async Task<ActionResult<IEnumerable<TransactionResponseDto>>> GetTransactionsByClient([FromRoute(Name = "client-Id")] Guid clientId)
+    {;
+        IEnumerable<Transaction> transactions = await _transactionService.GetTransactionsByClient(clientId);
+        IEnumerable<TransactionResponseDto> transactionResponseDto = _mapper.Map<IEnumerable<TransactionResponseDto>>(transactions);
+        return Ok(transactionResponseDto);
+    }
     
-    [HttpPost]
+    [HttpPost("transaction")]
     public async Task<ActionResult<TransactionResponseDto>> NewTransaction([FromBody] TransactionRequestDto transactionRequestDto)
     {
         if (!ModelState.IsValid)
         {
-            return BadRequest(ModelState);
+            var errorMessage = ModelState.FirstOrDefault().Value?.Errors.FirstOrDefault()?.ErrorMessage;
+            throw new BadHttpRequestException(errorMessage);
         }
-        try
-        {
-            Transaction transaction = _mapper.Map<Transaction>(transactionRequestDto);
-            var transactionCreated = await _transactionService.CreateTransaction(transaction);
-            TransactionResponseDto transactionResponseDto = _mapper.Map<TransactionResponseDto>(transaction);
-            return Ok(transactionResponseDto);
 
-        }
-        catch (Exception e)
-        {
-            return BadRequest("Failed during transaction: " + e.Message);
-        }
+        Transaction transaction = _mapper.Map<Transaction>(transactionRequestDto);
+        var transactionCreated = await _transactionService.CreateTransaction(transaction);
+        TransactionResponseDto transactionResponseDto = _mapper.Map<TransactionResponseDto>(transaction);
+        return Ok(transactionResponseDto);
+
     }
     
 }

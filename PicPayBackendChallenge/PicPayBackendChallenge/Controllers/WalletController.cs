@@ -6,7 +6,7 @@ using PicPayBackendChallenge.Services;
 
 namespace PicPayBackendChallenge.Controllers;
 
-[Route("/[controller]")]
+[Route("v1/picpay")]
 [ApiController]
 public class WalletController : ControllerBase
 {
@@ -19,29 +19,26 @@ public class WalletController : ControllerBase
         _mapper = mapper;
     }
 
-    [HttpGet]
+    [HttpGet("wallets")]
     public async Task<ActionResult<IEnumerable<WalletResponseDto>>> GetWallets()
     {
-
         var wallets = await _walletService.GetWallets();
         var walletsGetDto = _mapper.Map<IEnumerable<WalletResponseDto>>(wallets);
         return Ok(walletsGetDto);
     }
     
-    [HttpPost]
+    [HttpPost("wallet")]
     public async Task<ActionResult<WalletResponseDto>> CreateWallet([FromBody] WalletRequestDto walletRequestDto)
     {
-        try
+        if (!ModelState.IsValid)
         {
-            Wallet wallet = _mapper.Map<Wallet>(walletRequestDto);
-            var walletCreated = await _walletService.CreateWallet(wallet);
-            WalletResponseDto walletResponseDto = _mapper.Map<WalletResponseDto>(walletCreated);
-            return Ok(walletResponseDto);
-
+            var errorMessage = ModelState.FirstOrDefault().Value?.Errors.FirstOrDefault()?.ErrorMessage;
+            throw new BadHttpRequestException(errorMessage);
         }
-        catch (Exception e)
-        {
-            return BadRequest("Failed to create wallet: " + e.Message);
-        }
+        
+        Wallet wallet = _mapper.Map<Wallet>(walletRequestDto);
+        var walletCreated = await _walletService.CreateWallet(wallet);
+        WalletResponseDto walletResponseDto = _mapper.Map<WalletResponseDto>(walletCreated);
+        return Ok(walletResponseDto);
     }
 }
