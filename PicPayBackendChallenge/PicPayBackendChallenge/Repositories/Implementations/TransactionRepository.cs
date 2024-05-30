@@ -20,7 +20,7 @@ public class TransactionRepository : ITransactionRepository
         return await _context.Transaction.ToListAsync();
     }
 
-    public async Task<IEnumerable<Transaction?>> GetByUser(Guid userId)
+    public async Task<IEnumerable<Transaction?>> GetByClient(Guid userId)
     {
         IEnumerable<Transaction?> transactionsByUser = await _context.Transaction.Where(t => t.PayerId == userId).ToListAsync();
         return transactionsByUser;

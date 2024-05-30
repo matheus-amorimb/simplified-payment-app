@@ -13,7 +13,7 @@ public class TransactionRequestDto : IValidatableObject
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
         List<ValidationResult>  results = new List<ValidationResult>();
-
+        
         if (!IsValidValue(Value))
         {
             results.Add(new ValidationResult("Transaction value must be greater than 0.1"));

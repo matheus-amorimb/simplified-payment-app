@@ -18,6 +18,13 @@ public class TransactionService : ITransactionService
         _transactionRepository = transactionRepository;
     }
 
+    public async Task<IEnumerable<Transaction>> GetTransactionsByClient(Guid clientId)
+    {
+        IEnumerable<Transaction?> transactions = await _transactionRepository.GetByClient(clientId);
+
+        return transactions;
+    }
+
     public async Task<Transaction> CreateTransaction(Transaction transaction)
     {
         Wallet payerWallet = await _walletService.GetWalletById(transaction.PayerId);
