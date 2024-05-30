@@ -21,6 +21,11 @@ builder.Services.AddScoped<IWalletRepository, WalletRepository>();
 builder.Services.AddScoped<IWalletService, WalletService>();
 builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
 builder.Services.AddScoped<ITransactionService, TransactionService>();
+builder.Services.AddSingleton<RabbitMqService>(provider =>
+{
+    var hostName = builder.Configuration["RabbitMQ:HostName"];
+    return new RabbitMqService(hostName);
+});
 
 builder.Services.AddAutoMapper(typeof(WalletMappingProfile));
 builder.Services.AddControllers();
