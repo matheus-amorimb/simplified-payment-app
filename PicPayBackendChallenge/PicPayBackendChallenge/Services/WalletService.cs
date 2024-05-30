@@ -7,6 +7,8 @@ public class WalletService : IWalletService
 {
     private readonly IWalletRepository _walletRepository;
 
+    private readonly RabbitMqService _rabbitMqService;
+
     public WalletService(IWalletRepository walletRepository)
     {
         _walletRepository = walletRepository;
@@ -40,7 +42,9 @@ public class WalletService : IWalletService
         }
         
         var response = await _walletRepository.Create(wallet);
-
+        
+        _rabbitMqService.Publish(wallet, "wallet-creation-confirmation", "wallet-creation-confirmation");
+        
         return response;
     }
 

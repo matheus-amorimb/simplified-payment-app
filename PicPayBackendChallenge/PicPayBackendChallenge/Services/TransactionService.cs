@@ -8,14 +8,17 @@ namespace PicPayBackendChallenge.Services;
 
 public class TransactionService : ITransactionService
 {
-    private IWalletService _walletService;
+    private readonly IWalletService _walletService;
 
-    private ITransactionRepository _transactionRepository;
+    private readonly ITransactionRepository _transactionRepository;
 
-    public TransactionService(IWalletService walletService, ITransactionRepository transactionRepository)
+    private readonly RabbitMqService _rabbitMqService;
+
+    public TransactionService(IWalletService walletService, ITransactionRepository transactionRepository, RabbitMqService rabbitMqService)
     {
         _walletService = walletService;
         _transactionRepository = transactionRepository;
+        _rabbitMqService = rabbitMqService;
     }
 
     public async Task<IEnumerable<Transaction>> GetTransactionsByClient(Guid clientId)
@@ -43,6 +46,8 @@ public class TransactionService : ITransactionService
         await UpdateWalletBalance(payeeWallet, transaction.Value);
 
         await _transactionRepository.Create(transaction);
+        
+        _rabbitMqService.Publish(transaction, "transaction-confirmation", "transaction-confirmation");
 
         return transaction;
     }
