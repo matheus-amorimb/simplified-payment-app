@@ -1,4 +1,6 @@
 using System.Text;
+using System.Text.Json;
+using Notification.Dtos;
 using Notification.Utilities;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -10,9 +12,11 @@ public class WalletConsumerService : BackgroundService
     private ConnectionFactory _connectionFactory;
     private IConnection _connection;
     private IModel _channel;
+    private IEmailService _emailService;
     
-    public WalletConsumerService()
-    {  
+    public WalletConsumerService(IEmailService emailService)
+    {
+        _emailService = emailService;
         _connectionFactory = new ConnectionFactory(){ HostName = "localhost"};
         InitConsumer();
     }
@@ -35,7 +39,9 @@ public class WalletConsumerService : BackgroundService
         {
             var contentArray = eventArgs.Body.ToArray();
             var contentString = Encoding.UTF8.GetString(contentArray);
-            Console.WriteLine($" [x] Received {contentString}");
+            var walletNotificationData = JsonSerializer.Deserialize<WalletNotification>(contentString);
+            Console.WriteLine(walletNotificationData);
+            await _emailService.HandleEmailNotification(walletNotificationData);
         };
         
         _channel.BasicConsume(queue: GlobalVariables.WALLET_CREATION_QUEUE,
