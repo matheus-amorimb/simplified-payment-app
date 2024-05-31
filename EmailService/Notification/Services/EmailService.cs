@@ -1,6 +1,8 @@
+using System.Globalization;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
+using Notification.Dtos;
 using Notification.Models;
 
 namespace Notification.Services;
@@ -12,6 +14,52 @@ public class EmailService : IEmailService
     public EmailService(IConfiguration configuration)
     {
         _configuration = configuration;
+    }
+
+    public async Task HandleEmailNotification(object notification)
+    {
+        Email email = CreateEmailFactory(notification);
+        await SendEmail(email);
+    }
+    private Email CreateEmailFactory(object notification)
+    {
+        if (notification is TransactionNotification transactionNotification)
+        {
+            return CreateTransactionEmail(transactionNotification);
+        }
+        
+        return null;
+    }
+
+    private Email CreateTransactionEmail(TransactionNotification transactionNotification)
+    {
+        Email email = new Email();
+        email.ToEmail = transactionNotification.PayerWallet.Email;
+        email.Subject = ("Your transaction was confirmed!");
+
+        StringBuilder content = new StringBuilder();
+        content.AppendLine("<h2><strong>Transaction confirmed</strong></h2>");
+        content.AppendLine("<br/>");
+        content.AppendLine($"<p>You made a transaction to:</p>");
+        content.AppendLine($"<p><strong>{transactionNotification.PayeeWallet.FullName.ToUpper()}</strong></p>");
+        content.AppendLine("<br/>");
+        content.AppendLine($"<p>Transaction value:</p>");
+        content.AppendLine($"<p>R$ {transactionNotification.Transaction.Value.ToString("F2")}</p>");
+        content.AppendLine("<br/>");
+        content.AppendLine("<br/>");
+        content.AppendLine("<h3><strong>Transaction details</strong></h3>");
+        content.AppendLine("<br/>");
+        content.AppendLine("<p>Transaction Id</p>");
+        content.AppendLine($"<p>{transactionNotification.Transaction.TransactionId.ToString()}</p>");
+        content.AppendLine("<br/>");
+        content.AppendLine("<p>Date and hour</p>");
+        var cultureInfo = new CultureInfo("pt-BR");;
+        var localTime = transactionNotification.Transaction.Timestamp.ToLocalTime();
+        content.AppendLine($"<p>{localTime.ToString("dd/MMM/yyyy HH:mm:ss", cultureInfo)}</p>");
+
+        email.Content = content.ToString();
+
+        return email;
     }
 
     public async Task SendEmail(Email email)
@@ -37,14 +85,9 @@ public class EmailService : IEmailService
         var mailMessage = new MailMessage();
         mailMessage.From = new MailAddress(_configuration["EmailSettings:Username"] ?? string.Empty);
         mailMessage.To.Add(email.ToEmail);
-        mailMessage.Subject = email.Subject;
         mailMessage.IsBodyHtml = true;
-        
-        StringBuilder mailBody = new StringBuilder();
-        mailBody.AppendFormat("<h1>User Registered</h1>");
-        mailBody.AppendFormat("<br />");
-        mailBody.AppendFormat("<p>Thank you For Registering account</p>");
-        mailMessage.Body = mailBody.ToString();
+        mailMessage.Subject = email.Subject;
+        mailMessage.Body = email.Content;
 
         return mailMessage;
     }
