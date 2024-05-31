@@ -35,19 +35,19 @@ public class WalletService : IWalletService
 
         if (IsCpfInUse(wallets, wallet.Cpf))
         {
-            throw new BadHttpRequestException("Email is already in use");
+            throw new BadHttpRequestException("Cpf is already in use");
         }
         
         if (IsEmailInUse(wallets, wallet.Email))
         {
-            throw new BadHttpRequestException("Cpf is already in use");
+            throw new BadHttpRequestException("Email is already in use");
         }
         
         var response = await _walletRepository.Create(wallet);
 
         var walletNotificationDto = new WalletNotificationDto(wallet);
         
-        _rabbitMqService.Publish(response, "wallet-creation-confirmation", "wallet-creation-confirmation");
+        _rabbitMqService.Publish(walletNotificationDto, "wallet-creation-confirmation", "wallet-creation-confirmation");
         
         return response;
     }
