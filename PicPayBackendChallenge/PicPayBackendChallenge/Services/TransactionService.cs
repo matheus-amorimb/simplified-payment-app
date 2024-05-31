@@ -1,3 +1,4 @@
+using PicPayBackendChallenge.Dtos;
 using PicPayBackendChallenge.Enums;
 using PicPayBackendChallenge.Models;
 using PicPayBackendChallenge.Repositories.Implementations;
@@ -46,8 +47,10 @@ public class TransactionService : ITransactionService
         await UpdateWalletBalance(payeeWallet, transaction.Value);
 
         await _transactionRepository.Create(transaction);
+
+        var transactionNotificationDto = new TransactionNotificationDto(transaction, payerWallet, payeeWallet);
         
-        _rabbitMqService.Publish(transaction, "transaction-confirmation", "transaction-confirmation");
+        _rabbitMqService.Publish(transactionNotificationDto, "transaction-confirmation", "transaction-confirmation");
 
         return transaction;
     }

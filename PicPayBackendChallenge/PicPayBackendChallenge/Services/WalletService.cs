@@ -1,3 +1,4 @@
+using PicPayBackendChallenge.Dtos;
 using PicPayBackendChallenge.Models;
 using PicPayBackendChallenge.Repositories.Interfaces;
 
@@ -9,9 +10,10 @@ public class WalletService : IWalletService
 
     private readonly RabbitMqService _rabbitMqService;
 
-    public WalletService(IWalletRepository walletRepository)
+    public WalletService(IWalletRepository walletRepository, RabbitMqService rabbitMqService)
     {
         _walletRepository = walletRepository;
+        _rabbitMqService = rabbitMqService;
     }
     
     public async Task<Wallet> GetWalletById(Guid id)
@@ -33,17 +35,19 @@ public class WalletService : IWalletService
 
         if (IsCpfInUse(wallets, wallet.Cpf))
         {
-            throw new Exception("Email is already in use");
+            throw new BadHttpRequestException("Email is already in use");
         }
         
         if (IsEmailInUse(wallets, wallet.Email))
         {
-            throw new Exception("Cpf is already in use");
+            throw new BadHttpRequestException("Cpf is already in use");
         }
         
         var response = await _walletRepository.Create(wallet);
+
+        var walletNotificationDto = new WalletNotificationDto(wallet);
         
-        _rabbitMqService.Publish(wallet, "wallet-creation-confirmation", "wallet-creation-confirmation");
+        _rabbitMqService.Publish(response, "wallet-creation-confirmation", "wallet-creation-confirmation");
         
         return response;
     }
