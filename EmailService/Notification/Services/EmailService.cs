@@ -25,13 +25,18 @@ public class EmailService : IEmailService
     {
         if (notification is TransactionNotification transactionNotification)
         {
-            return CreateTransactionEmail(transactionNotification);
+            return CreateTransactionConfirmationEmail(transactionNotification);
+        }        
+        if (notification is WalletNotification walletNotification)
+        {
+            Console.WriteLine("isWalletNotification");
+            return CreateWalletConfirmationEmail(walletNotification);
         }
         
         return null;
     }
 
-    private Email CreateTransactionEmail(TransactionNotification transactionNotification)
+    private Email CreateTransactionConfirmationEmail(TransactionNotification transactionNotification)
     {
         Email email = new Email();
         email.ToEmail = transactionNotification.PayerWallet.Email;
@@ -56,6 +61,25 @@ public class EmailService : IEmailService
         var cultureInfo = new CultureInfo("pt-BR");;
         var localTime = transactionNotification.Transaction.Timestamp.ToLocalTime();
         content.AppendLine($"<p>{localTime.ToString("dd/MMM/yyyy HH:mm:ss", cultureInfo)}</p>");
+
+        email.Content = content.ToString();
+        Console.WriteLine(email);
+        return email;
+    }    
+    private Email CreateWalletConfirmationEmail(WalletNotification walletNotification)
+    {
+        Email email = new Email();
+        email.ToEmail = walletNotification.Wallet.Email;
+        email.Subject = ("Welcome to PicPay!");
+
+        StringBuilder content = new StringBuilder();
+        content.AppendLine("<h2><strong>Account created successfully!</strong></h2>");
+        content.AppendLine("<br/>");
+        content.AppendLine("<br/>");
+        content.AppendLine($"<h3><strong>Account details:</strong></h3>");
+        content.AppendLine("<br/>");
+        content.AppendLine($"<p>Wallet id: {walletNotification.Wallet.WalletId}</p>");
+        content.AppendLine($"<p>Name: {walletNotification.Wallet.FullName}</p>");
 
         email.Content = content.ToString();
 
