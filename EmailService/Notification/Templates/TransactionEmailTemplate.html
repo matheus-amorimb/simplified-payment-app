@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment confirmed</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+
+        body {
+            font-family: 'Roboto Mono', monospace;
+            color: #333;
+            line-height: 1.6;
+            background-color: #f6f6f6;
+            padding: 0;
+            margin: 0;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            background-color: #f1f1f1;
+            padding: 10px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .header h1 {
+            color: #4CAF50;
+            font-size: 32px;
+            font-weight: bold;
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+        }
+        .content {
+            padding: 20px;
+            margin-top: -20px; /* Move content up */
+        }
+        .content h2 {
+            color: #4CAF50;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+            padding-bottom: 10px;
+            font-family: 'Montserrat', sans-serif;
+            margin-bottom: 20px;
+        }
+        .content p {
+            margin: 0 0 10px;
+        }
+        .content strong {
+            color: #000;
+        }
+        .footer {
+            background-color: #f1f1f1;
+            padding: 10px;
+            text-align: center;
+            font-size: 0.9em;
+        }
+
+        .transaction-details {
+            color: #666;
+            font-weight: normal;
+        }
+
+        .transaction-details-important {
+            color: #26782c;
+            font-weight: bold;
+            font-size: 1.1em;
+        }        
+        
+        .transaction-details-data {
+            color: #3B3B3B;
+            font-weight: normal;
+        }
+        
+        .transaction-details-heading {
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>MatheusPay</h1>
+    </div>
+    <div class="content">
+        <h2><strong>Payment confirmed</strong></h2>
+        <div class="line"></div> <!-- Replaced green line with the opaque line -->
+        <p class="transaction-details">You made a transaction to:</p>
+        <p class="transaction-details-important">{{PayeeFullName}}</p>
+        <p class="transaction-details">Transaction amount:</p>
+        <p class="transaction-details-important">R$ {{TransactionValue}}</p>
+        <br>
+        <h3 class="transaction-details-heading"><strong>Transaction details</strong></h3>
+        <p class="transaction-details">Transaction ID:</p>
+        <p class="transaction-details-data">{{TransactionId}}</p>
+        <p class="transaction-details">Date:</p>
+        <p class="transaction-details-data">{{TransactionDate}}</p>
+    </div>
+    <div class="footer">
+        <p>&copy; 2024 MatheusPay. All rights reserved.</p>
+    </div>
+</div>
+</body>
+</html>
