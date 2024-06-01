@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using PicPayBackendChallenge.Models;
+using SimplifiedPicPay.Models;
 
-namespace PicPayBackendChallenge.Context;
+namespace SimplifiedPicPay.Context;
 
-public class AppDbContext : DbContext
+public class AppDbContext : IdentityDbContext<User, IdentityRole<Guid>, Guid>
 {
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {}
@@ -24,7 +26,20 @@ public class AppDbContext : DbContext
             .IsUnique();       
         
         modelBuilder.Entity<Wallet>()
-            .HasIndex(e => e.Cpf)
+            .HasOne(w => w.User)
+            .WithOne(u => u.Wallet)
+            .HasForeignKey<Wallet>(w => w.UserId);
+        
+        modelBuilder.Entity<User>()
+            .HasIndex(u => u.Cpf)
             .IsUnique();
+        
+        modelBuilder.Entity<User>()
+            .HasIndex(u => u.Email)
+            .IsUnique();
+        
+        base.OnModelCreating(modelBuilder);
     }
+    
+    
 }
