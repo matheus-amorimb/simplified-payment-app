@@ -1,4 +1,4 @@
-namespace PicPayBackendChallenge.Services;
+namespace SimplifiedPicPay.Services;
 
 public interface IWalletConfirmartionEmailService
 {

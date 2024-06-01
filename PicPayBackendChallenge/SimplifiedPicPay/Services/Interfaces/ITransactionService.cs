@@ -1,5 +1,7 @@
-namespace PicPayBackendChallenge.Services;
-using PicPayBackendChallenge.Models;
+using SimplifiedPicPay.Models;
+
+namespace SimplifiedPicPay.Services;
+using SimplifiedPicPay.Models;
 
 public interface ITransactionService
 {

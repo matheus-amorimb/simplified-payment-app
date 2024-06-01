@@ -2,7 +2,7 @@ using System.Text;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 
-namespace PicPayBackendChallenge.Services;
+namespace SimplifiedPicPay.Services;
 
 public class RabbitMqService : IWalletConfirmartionEmailService
 {

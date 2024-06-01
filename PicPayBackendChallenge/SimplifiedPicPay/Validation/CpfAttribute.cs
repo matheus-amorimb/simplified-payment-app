@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace PicPayBackendChallenge.Validation;
+namespace SimplifiedPicPay.Validation;
 
 public class CpfAttribute : ValidationAttribute
 {

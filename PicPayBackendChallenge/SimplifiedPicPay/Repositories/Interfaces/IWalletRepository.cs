@@ -1,6 +1,6 @@
-using PicPayBackendChallenge.Models;
+using SimplifiedPicPay.Models;
 
-namespace PicPayBackendChallenge.Repositories.Interfaces;
+namespace SimplifiedPicPay.Repositories.Interfaces;
 
 public interface IWalletRepository
 {
