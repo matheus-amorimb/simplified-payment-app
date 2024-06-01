@@ -2,9 +2,9 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
-using PicPayBackendChallenge.Validation;
+using SimplifiedPicPay.Validation;
 
-namespace PicPayBackendChallenge.Models;
+namespace SimplifiedPicPay.Models;
 
 [Table("wallet")]
 public class Wallet
@@ -16,11 +16,6 @@ public class Wallet
     [Required]
     [Column("full_name")]
     public string? FullName { get; set; }
-    
-    [Required]
-    [Column("cpf")]
-    // [Cpf]
-    public string? Cpf { get; set; }
     
     [Required]
     [EmailAddress]
@@ -38,6 +33,13 @@ public class Wallet
     [ForeignKey("WalletTypeId")]
     public WalletType? WalletType { get; set; }
 
+    [JsonIgnore]
+    [Column("user_id")]
+    public Guid UserId { get; set; }
+    
+    [JsonIgnore]
+    public User User { get; set; }
+    
     [NotMapped]
     public Boolean IsUser => this.WalletTypeId == 1;
 }
