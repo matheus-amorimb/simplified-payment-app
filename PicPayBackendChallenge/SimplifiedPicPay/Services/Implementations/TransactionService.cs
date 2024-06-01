@@ -1,11 +1,11 @@
-using PicPayBackendChallenge.Dtos;
-using PicPayBackendChallenge.Enums;
-using PicPayBackendChallenge.Models;
-using PicPayBackendChallenge.Repositories.Implementations;
-using PicPayBackendChallenge.Repositories.Interfaces;
-using WalletType = PicPayBackendChallenge.Enums.WalletType;
+using SimplifiedPicPay.Repositories.Implementations;
+using SimplifiedPicPay.Dtos;
+using SimplifiedPicPay.Enums;
+using SimplifiedPicPay.Models;
+using SimplifiedPicPay.Repositories.Interfaces;
+using WalletType = SimplifiedPicPay.Enums.WalletType;
 
-namespace PicPayBackendChallenge.Services;
+namespace SimplifiedPicPay.Services;
 
 public class TransactionService : ITransactionService
 {

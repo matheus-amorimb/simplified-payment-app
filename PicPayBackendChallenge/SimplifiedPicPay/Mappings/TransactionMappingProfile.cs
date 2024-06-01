@@ -1,8 +1,8 @@
 using AutoMapper;
-using PicPayBackendChallenge.Dtos;
-using PicPayBackendChallenge.Models;
+using SimplifiedPicPay.Dtos;
+using SimplifiedPicPay.Models;
 
-namespace PicPayBackendChallenge.Mappings;
+namespace SimplifiedPicPay.Mappings;
 
 public class TransactionMappingProfile : Profile
 {

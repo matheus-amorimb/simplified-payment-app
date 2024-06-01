@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace PicPayBackendChallenge.Dtos;
+namespace SimplifiedPicPay.Dtos;
 
 public class TransactionRequestDto : IValidatableObject
 {

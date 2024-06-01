@@ -1,10 +1,10 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using PicPayBackendChallenge.Dtos;
-using PicPayBackendChallenge.Models;
-using PicPayBackendChallenge.Services;
+using SimplifiedPicPay.Dtos;
+using SimplifiedPicPay.Models;
+using SimplifiedPicPay.Services;
 
-namespace PicPayBackendChallenge.Controllers;
+namespace SimplifiedPicPay.Controllers;
 
 [Route("v1/picpay")]
 [ApiController]

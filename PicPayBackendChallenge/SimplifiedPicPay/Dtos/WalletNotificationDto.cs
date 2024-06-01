@@ -1,6 +1,6 @@
-using PicPayBackendChallenge.Models;
+using SimplifiedPicPay.Models;
 
-namespace PicPayBackendChallenge.Dtos;
+namespace SimplifiedPicPay.Dtos;
 
 public class WalletNotificationDto
 {

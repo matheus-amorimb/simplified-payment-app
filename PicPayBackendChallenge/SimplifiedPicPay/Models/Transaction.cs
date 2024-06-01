@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
-namespace PicPayBackendChallenge.Models;
+namespace SimplifiedPicPay.Models;
 
 [Table("transaction")]
 public class Transaction

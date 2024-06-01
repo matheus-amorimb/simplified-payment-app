@@ -1,8 +1,8 @@
-using PicPayBackendChallenge.Dtos;
-using PicPayBackendChallenge.Models;
-using PicPayBackendChallenge.Repositories.Interfaces;
+using SimplifiedPicPay.Dtos;
+using SimplifiedPicPay.Models;
+using SimplifiedPicPay.Repositories.Interfaces;
 
-namespace PicPayBackendChallenge.Services;
+namespace SimplifiedPicPay.Services;
 
 public class WalletService : IWalletService
 {
@@ -32,11 +32,6 @@ public class WalletService : IWalletService
     {
 
         IEnumerable<Wallet> wallets = await this.GetWallets();
-
-        if (IsCpfInUse(wallets, wallet.Cpf))
-        {
-            throw new BadHttpRequestException("Cpf is already in use");
-        }
         
         if (IsEmailInUse(wallets, wallet.Email))
         {
@@ -71,8 +66,4 @@ public class WalletService : IWalletService
         return wallets.Any(wallet => wallet.Email == email);
     }
     
-    public bool IsCpfInUse(IEnumerable<Wallet> wallets, string cpf)
-    {
-        return wallets.Any(wallet => wallet.Cpf == cpf);
-    }
 }

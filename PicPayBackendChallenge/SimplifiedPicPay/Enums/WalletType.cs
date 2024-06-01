@@ -1,6 +1,6 @@
 using System.ComponentModel;
 
-namespace PicPayBackendChallenge.Enums;
+namespace SimplifiedPicPay.Enums;
 
 public enum WalletType
 {

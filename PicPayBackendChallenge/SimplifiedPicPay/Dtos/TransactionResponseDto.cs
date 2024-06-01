@@ -1,4 +1,4 @@
-namespace PicPayBackendChallenge.Dtos;
+namespace SimplifiedPicPay.Dtos;
 
 public class TransactionResponseDto
 {

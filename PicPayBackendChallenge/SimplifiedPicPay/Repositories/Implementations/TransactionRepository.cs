@@ -1,10 +1,10 @@
 using Microsoft.EntityFrameworkCore;
-using PicPayBackendChallenge.Context;
-using PicPayBackendChallenge.Models;
-using PicPayBackendChallenge.Repositories.Interfaces;
-using PicPayBackendChallenge.Services;
+using SimplifiedPicPay.Services;
+using SimplifiedPicPay.Context;
+using SimplifiedPicPay.Models;
+using SimplifiedPicPay.Repositories.Interfaces;
 
-namespace PicPayBackendChallenge.Repositories.Implementations;
+namespace SimplifiedPicPay.Repositories.Implementations;
 
 public class TransactionRepository : ITransactionRepository
 {

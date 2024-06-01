@@ -1,14 +1,11 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace PicPayBackendChallenge.Dtos;
+namespace SimplifiedPicPay.Dtos;
 
 public class WalletRequestDto : IValidatableObject
 {
     [Required]
     public string? FullName { get; set; }
-    
-    [Required]
-    public string? Cpf { get; set; }
     
     [EmailAddress]
     public string? Email { get; set; }

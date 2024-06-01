@@ -1,4 +1,4 @@
-namespace PicPayBackendChallenge.Enums;
+namespace SimplifiedPicPay.Enums;
 
 public enum TransactionParticipant
 {

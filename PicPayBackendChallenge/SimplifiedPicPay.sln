@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PicPayBackendChallenge", "PicPayBackendChallenge\PicPayBackendChallenge.csproj", "{668E971A-3CCA-4D59-96E3-AE5B4A39E412}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplifiedPicPay", "SimplifiedPicPay\SimplifiedPicPay.csproj", "{668E971A-3CCA-4D59-96E3-AE5B4A39E412}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace PicPayBackendChallenge.Models;
+namespace SimplifiedPicPay.Models;
 
 [Table("wallet_type")]
 public class WalletType
