@@ -49,7 +49,7 @@ public class EmailService : IEmailService
     {
         Email email = new Email();
         email.ToEmail = walletNotification.Wallet.Email;
-        email.Subject = ("Welcome to PicPay!");
+        email.Subject = ("Welcome to MatheusPay!");
         email.Content = WalletEmailExtension.EmailTemplate(walletNotification);
         return email;
     }
@@ -61,11 +61,15 @@ public class EmailService : IEmailService
         
         try
         {
+            Console.WriteLine(mailMessage.From);
+            Console.WriteLine(mailMessage.To);
+            Console.WriteLine(mailMessage.Subject);
             await client.SendMailAsync(mailMessage);
             
         }
         catch (Exception e)
         {
+            Console.WriteLine(e.ToString());
             client.Dispose();
             mailMessage.Dispose();
         }
@@ -93,6 +97,7 @@ public class EmailService : IEmailService
         var senderEmail = smtpSettings["SenderEmail"];
         var username = smtpSettings["Username"];
         var password = smtpSettings["Password"];
+        Console.WriteLine(password);
         
         SmtpClient client = new SmtpClient(smtpServer, int.Parse(smtpPort));
 
