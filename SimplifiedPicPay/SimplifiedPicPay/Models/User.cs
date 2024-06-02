@@ -6,6 +6,10 @@ namespace SimplifiedPicPay.Models;
 
 public class User : IdentityUser<Guid>
 {
+    public string FirstName { get; set; }
+    
+    public string LastName { get; set; }
+    
     [Required]
     [EmailAddress]
     public override string Email { get; set; }

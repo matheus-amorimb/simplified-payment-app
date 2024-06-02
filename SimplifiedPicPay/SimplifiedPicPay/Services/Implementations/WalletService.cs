@@ -33,10 +33,7 @@ public class WalletService : IWalletService
 
         IEnumerable<Wallet> wallets = await this.GetWallets();
         
-        if (IsEmailInUse(wallets, wallet.Email))
-        {
-            throw new BadHttpRequestException("Email is already in use");
-        }
+        ValidateEmail(wallets, wallet.Email);
         
         var response = await _walletRepository.Create(wallet);
 
@@ -61,9 +58,12 @@ public class WalletService : IWalletService
         return wallet;
     }
 
-    public bool IsEmailInUse(IEnumerable<Wallet> wallets, string email)
-    {   
-        return wallets.Any(wallet => wallet.Email == email);
+    public void ValidateEmail(IEnumerable<Wallet> wallets, string email)
+    {
+        if (wallets.Any(wallet => wallet.Email == email))
+        {
+            throw new BadHttpRequestException("Email is already in use");
+        }
     }
     
 }
