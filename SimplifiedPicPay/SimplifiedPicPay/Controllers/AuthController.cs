@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SimplifiedPicPay.Dtos;
@@ -11,14 +12,17 @@ namespace SimplifiedPicPay.Controllers;
 public class AuthController : ControllerBase
 {
     private readonly IAuthService _authService;
-    public AuthController(UserManager<User> userManager, IAuthService authService)
+
+    private readonly IMapper _mapper;
+    public AuthController(UserManager<User> userManager, IAuthService authService, IMapper mapper)
     {
         _authService = authService;
+        _mapper = mapper;
     }
-
+    
     [HttpPost]
     [Route("register")]
-    public async Task<ActionResult> RegisterNewUser([FromBody] UserRegisterRequestDto userRegisterRequestDto)
+    public async Task<ActionResult<UserRegisterResponseDto>> RegisterNewUser([FromBody] UserRegisterRequestDto userRegisterRequestDto)
     {
         if (!ModelState.IsValid)
         {
@@ -27,7 +31,8 @@ public class AuthController : ControllerBase
         }
 
         var userCreated = await _authService.Register(userRegisterRequestDto);
+        var responseDto = _mapper.Map<UserRegisterResponseDto>(userCreated);
         
-        return Ok(userCreated);
+        return Ok(responseDto);
     }
 }
