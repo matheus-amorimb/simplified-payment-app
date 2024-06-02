@@ -3,8 +3,10 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using SimplifiedPicPay;
 using SimplifiedPicPay.Context;
+using SimplifiedPicPay.Extensions;
 using SimplifiedPicPay.Mappings;
 using SimplifiedPicPay.Models;
 using SimplifiedPicPay.Repositories.Implementations;
@@ -37,22 +39,17 @@ builder.Services.AddIdentity<User, IdentityRole<Guid>>(options =>
     .AddDefaultTokenProviders();
 
 
-builder.Services.AddScoped<IWalletRepository, WalletRepository>();
-builder.Services.AddScoped<IWalletService, WalletService>();
-builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
-builder.Services.AddScoped<ITransactionService, TransactionService>();
-builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddSingleton<RabbitMqService>(provider =>
-{
-    var hostName = builder.Configuration["RabbitMQ:HostName"];
-    return new RabbitMqService(hostName);
-});
-
-
-builder.Services.AddAutoMapper(typeof(WalletMappingProfile));
-builder.Services.AddAutoMapper(typeof(AuthMappingProfile));
-builder.Services.AddAutoMapper(typeof(TransactionMappingProfile));
+builder.Services.AddRepositories();
+builder.Services.AddServices();
+builder.Services.AddRabbitMqService(builder.Configuration);
+builder.Services.AddAutoMappers();
 builder.Services.AddControllers();
+
+JsonConvert.DefaultSettings = () => new JsonSerializerSettings {
+    Formatting = Newtonsoft.Json.Formatting.Indented,
+    ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+};
+
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
 
