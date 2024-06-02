@@ -35,9 +35,7 @@ public class WalletController : ControllerBase
             var errorMessage = ModelState.FirstOrDefault().Value?.Errors.FirstOrDefault()?.ErrorMessage;
             throw new BadHttpRequestException(errorMessage);
         }
-        Wallet wallet = _mapper.Map<Wallet>(walletRequestDto);
-        var walletCreated = await _walletService.CreateWallet(wallet);
-        WalletResponseDto walletResponseDto = _mapper.Map<WalletResponseDto>(walletCreated);
-        return Ok(walletResponseDto);
+        var walletCreated = await _walletService.CreateWallet(walletRequestDto);
+        return Ok(walletCreated);
     }
 }

@@ -1,3 +1,4 @@
+using AutoMapper;
 using SimplifiedPicPay.Dtos;
 using SimplifiedPicPay.Models;
 using SimplifiedPicPay.Repositories.Interfaces;
@@ -10,10 +11,13 @@ public class WalletService : IWalletService
 
     private readonly RabbitMqService _rabbitMqService;
 
-    public WalletService(IWalletRepository walletRepository, RabbitMqService rabbitMqService)
+    private readonly IMapper _mapper;
+
+    public WalletService(IWalletRepository walletRepository, RabbitMqService rabbitMqService, IMapper mapper)
     {
         _walletRepository = walletRepository;
         _rabbitMqService = rabbitMqService;
+        _mapper = mapper;
     }
     
     public async Task<Wallet> GetWalletById(Guid id)
@@ -28,20 +32,26 @@ public class WalletService : IWalletService
         return response;
     }
 
-    public async Task<Wallet> CreateWallet(Wallet wallet)
+    public async Task<WalletResponseDto> CreateWallet(WalletRequestDto walletRequestDto)
     {
 
         IEnumerable<Wallet> wallets = await this.GetWallets();
+
+        Wallet wallet = _mapper.Map<Wallet>(walletRequestDto);
         
         ValidateEmail(wallets, wallet.Email);
+
+        Console.WriteLine(wallet.FullName);
         
         var response = await _walletRepository.Create(wallet);
+        
+        WalletResponseDto responseDto = _mapper.Map<WalletResponseDto>(response);
 
         var walletNotificationDto = new WalletNotificationDto(wallet);
         
         _rabbitMqService.Publish(walletNotificationDto, "wallet-creation-confirmation", "wallet-creation-confirmation");
         
-        return response;
+        return responseDto;
     }
 
     public async Task<Wallet> Uptade(Wallet wallet)

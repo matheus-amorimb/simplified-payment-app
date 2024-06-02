@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace SimplifiedPicPay.Dtos;
 
@@ -9,6 +10,9 @@ public class WalletRequestDto : IValidatableObject
     
     [EmailAddress]
     public string? Email { get; set; }
+    
+    [JsonIgnore]
+    public Guid UserId { get; set; }
     
     [Required]
     public int WalletTypeId { get; set; }
