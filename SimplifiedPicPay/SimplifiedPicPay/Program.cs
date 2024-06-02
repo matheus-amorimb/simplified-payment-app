@@ -25,7 +25,14 @@ builder.Services.AddDbContext<AppDbContext>(optionsBuilder =>
     optionsBuilder.UseNpgsql(postgresConnection);
 });
 
-builder.Services.AddIdentity<User, IdentityRole<Guid>>()
+builder.Services.AddIdentity<User, IdentityRole<Guid>>(options =>
+    {
+        options.Password.RequireDigit = false;
+        options.Password.RequireUppercase = false;
+        options.Password.RequireLowercase = false;
+        options.Password.RequiredLength = 3;
+        options.Password.RequireNonAlphanumeric = false;
+    })
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
 
@@ -34,6 +41,7 @@ builder.Services.AddScoped<IWalletRepository, WalletRepository>();
 builder.Services.AddScoped<IWalletService, WalletService>();
 builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
 builder.Services.AddScoped<ITransactionService, TransactionService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddSingleton<RabbitMqService>(provider =>
 {
     var hostName = builder.Configuration["RabbitMQ:HostName"];
@@ -42,6 +50,8 @@ builder.Services.AddSingleton<RabbitMqService>(provider =>
 
 
 builder.Services.AddAutoMapper(typeof(WalletMappingProfile));
+builder.Services.AddAutoMapper(typeof(AuthMappingProfile));
+builder.Services.AddAutoMapper(typeof(TransactionMappingProfile));
 builder.Services.AddControllers();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
