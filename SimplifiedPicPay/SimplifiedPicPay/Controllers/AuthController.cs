@@ -22,7 +22,7 @@ public class AuthController : ControllerBase
     
     [HttpPost]
     [Route("register")]
-    public async Task<ActionResult<UserRegisterResponseDto>> RegisterNewUser([FromBody] UserRegisterRequestDto userRegisterRequestDto)
+    public async Task<ActionResult<UserRegisterResponseDto>> SignUp([FromBody] UserRegisterRequestDto userRegisterRequestDto)
     {
         if (!ModelState.IsValid)
         {
@@ -35,4 +35,20 @@ public class AuthController : ControllerBase
         
         return Ok(responseDto);
     }
+
+    [HttpPost]
+    [Route("login")]
+    public async Task<ActionResult<UserLoginResponseDto>> LogIn([FromBody] UserLoginRequestDto userLoginRequestDto)
+    {
+        if (!ModelState.IsValid)
+        {
+            var errorMessage = ModelState.FirstOrDefault().Value?.Errors.FirstOrDefault()?.ErrorMessage;
+            throw new BadHttpRequestException(errorMessage);
+        }
+
+        var userLogged = await _authService.LogIn(userLoginRequestDto);
+
+        return userLogged;
+    }
+    
 }
