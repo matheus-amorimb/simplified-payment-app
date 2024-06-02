@@ -4,5 +4,5 @@ namespace SimplifiedPicPay.Services;
 
 public interface IAuthService
 {
-    Task Register(UserRegisterRequestDto userRegisterRequestDto);
+    Task<UserRegisterRequestDto> Register(UserRegisterRequestDto userRegisterRequestDto);
 }
