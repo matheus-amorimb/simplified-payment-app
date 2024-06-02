@@ -7,11 +7,7 @@ using Newtonsoft.Json;
 using SimplifiedPicPay;
 using SimplifiedPicPay.Context;
 using SimplifiedPicPay.Extensions;
-using SimplifiedPicPay.Mappings;
 using SimplifiedPicPay.Models;
-using SimplifiedPicPay.Repositories.Implementations;
-using SimplifiedPicPay.Repositories.Interfaces;
-using SimplifiedPicPay.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

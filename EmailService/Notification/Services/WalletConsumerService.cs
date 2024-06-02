@@ -40,7 +40,6 @@ public class WalletConsumerService : BackgroundService
             var contentArray = eventArgs.Body.ToArray();
             var contentString = Encoding.UTF8.GetString(contentArray);
             var walletNotificationData = JsonSerializer.Deserialize<WalletNotification>(contentString);
-            Console.WriteLine(walletNotificationData);
             await _emailService.HandleEmailNotification(walletNotificationData);
         };
         

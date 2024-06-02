@@ -30,7 +30,6 @@ public class EmailService : IEmailService
         }        
         if (notification is WalletNotification walletNotification)
         {
-            Console.WriteLine("isWalletNotification");
             return CreateWalletConfirmationEmail(walletNotification);
         }
         
@@ -61,15 +60,11 @@ public class EmailService : IEmailService
         
         try
         {
-            Console.WriteLine(mailMessage.From);
-            Console.WriteLine(mailMessage.To);
-            Console.WriteLine(mailMessage.Subject);
             await client.SendMailAsync(mailMessage);
             
         }
         catch (Exception e)
         {
-            Console.WriteLine(e.ToString());
             client.Dispose();
             mailMessage.Dispose();
         }
@@ -97,7 +92,6 @@ public class EmailService : IEmailService
         var senderEmail = smtpSettings["SenderEmail"];
         var username = smtpSettings["Username"];
         var password = smtpSettings["Password"];
-        Console.WriteLine(password);
         
         SmtpClient client = new SmtpClient(smtpServer, int.Parse(smtpPort));
 
