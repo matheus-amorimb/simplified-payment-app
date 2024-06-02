@@ -9,11 +9,13 @@ public class AuthService : IAuthService
 {
     private readonly UserManager<User> _userManager;
     private readonly IMapper _mapper;
+    private readonly IWalletService _walletService;
 
-    public AuthService(UserManager<User> userManager, IMapper mapper)
+    public AuthService(UserManager<User> userManager, IMapper mapper, IWalletService walletService)
     {
         _userManager = userManager;
         _mapper = mapper;
+        _walletService = walletService;
     }
 
     public async Task<UserRegisterRequestDto> Register(UserRegisterRequestDto userRegisterRequestDto)
@@ -21,7 +23,7 @@ public class AuthService : IAuthService
         ValidateCpfNotInUse(userRegisterRequestDto.Cpf);
         ValidateEmailNotInUse(userRegisterRequestDto.Email);
 
-        var newUser = _mapper.Map<User>(userRegisterRequestDto);
+        User newUser = _mapper.Map<User>(userRegisterRequestDto);
         newUser.UserName = newUser.Email;
         var result = await _userManager.CreateAsync(newUser, userRegisterRequestDto.Password);
         
@@ -30,6 +32,12 @@ public class AuthService : IAuthService
             string errors = string.Join(" ", result.Errors.Select(e => e.Description));
             throw new BadHttpRequestException(errors);
         }
+
+        WalletRequestDto walletRequestDto = _mapper.Map<WalletRequestDto>(userRegisterRequestDto);
+        walletRequestDto.UserId = newUser.Id;
+        walletRequestDto.FullName = $"{userRegisterRequestDto.FirstName} {userRegisterRequestDto.LastName}";
+
+        await _walletService.CreateWallet(walletRequestDto);
         
         return userRegisterRequestDto;
     }
