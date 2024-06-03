@@ -50,5 +50,16 @@ public class AuthController : ControllerBase
 
         return userLogged;
     }
+
+    [HttpPost]
+    [Route("create-role")]
+    public async Task<ActionResult> CreateRole([FromBody] string roleName)
+    {
+        var response = await _authService.CreateRole(roleName);
+
+        return Ok(response);
+
+    }
+    
     
 }

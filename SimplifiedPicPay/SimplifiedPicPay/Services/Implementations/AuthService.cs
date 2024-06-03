@@ -11,18 +11,20 @@ namespace SimplifiedPicPay.Services;
 public class AuthService : IAuthService
 {
     private readonly UserManager<User> _userManager;
+    private readonly RoleManager<IdentityRole<Guid>> _roleManager;
     private readonly IMapper _mapper;
     private readonly IWalletService _walletService;
     private readonly ITokenService _tokenService;
     private readonly IConfiguration _configuration;
 
-    public AuthService(UserManager<User> userManager, IMapper mapper, IWalletService walletService, IConfiguration configuration, ITokenService tokenService)
+    public AuthService(UserManager<User> userManager, IMapper mapper, IWalletService walletService, IConfiguration configuration, ITokenService tokenService, RoleManager<IdentityRole<Guid>> roleManager)
     {
         _userManager = userManager;
         _mapper = mapper;
         _walletService = walletService;
         _configuration = configuration;
         _tokenService = tokenService;
+        _roleManager = roleManager;
     }
     
     public async Task<UserRegisterRequestDto> Register(UserRegisterRequestDto userRegisterRequestDto)
@@ -48,12 +50,36 @@ public class AuthService : IAuthService
         
         return userRegisterRequestDto;
     }
-    
+
+    public async Task<string> CreateRole(string roleName)
+    { 
+        await ValidateRoleName(roleName);
+
+        var newRole = new IdentityRole<Guid>(roleName);
+        var result = await _roleManager.CreateAsync(newRole);
+
+        if (!result.Succeeded)
+        {
+            string errors = string.Join(" ", result.Errors.Select(e => e.Description));
+            throw new BadHttpRequestException(errors);
+        }
+
+        return $"Role {roleName} added successfully";
+    }
+
+    private async Task ValidateRoleName(string roleName)
+    {
+        if ((await _roleManager.RoleExistsAsync(roleName)))
+        {
+            throw new BadHttpRequestException("Role already exists");
+        }
+    }
+
     public async Task<UserLoginResponseDto> LogIn(UserLoginRequestDto userLoginRequestDto)
     {
         User user = await _userManager.FindByNameAsync(userLoginRequestDto.Email);
         
-        ValdiateUserName(user);
+        ValidateUserName(user);
         
         await ValdiateUserPassword(user, userLoginRequestDto.Password);
 
@@ -110,7 +136,7 @@ public class AuthService : IAuthService
         }
     }
 
-    private void ValdiateUserName(User user)
+    private void ValidateUserName(User user)
     {
         if (user is null)
         {
