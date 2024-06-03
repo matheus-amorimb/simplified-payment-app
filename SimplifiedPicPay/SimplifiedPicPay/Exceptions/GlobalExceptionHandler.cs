@@ -12,6 +12,7 @@ public class GlobalExceptionHandler : IExceptionHandler
         (int statusCode, string errorMessage, string title) = exception switch
         {
             BadHttpRequestException badHttpRequestException => (StatusCodes.Status400BadRequest, badHttpRequestException.Message, "Bad Request"),
+            UnauthorizedAccessException unauthorizedAccessException => (StatusCodes.Status401Unauthorized, unauthorizedAccessException.Message, "Unauthorized"),
             _ => (500, "Something went wrong", "Internal Error")
         };
 
