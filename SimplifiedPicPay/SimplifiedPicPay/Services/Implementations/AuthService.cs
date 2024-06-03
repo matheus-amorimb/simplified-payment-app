@@ -42,6 +42,14 @@ public class AuthService : IAuthService
             throw new BadHttpRequestException(errors);
         }
 
+        AssignRoleRequestDto assignRoleRequestDto = new AssignRoleRequestDto()
+        {
+            Email = newUser.Email,
+            Role = userRegisterRequestDto.WalletTypeId == 1 ? "User" : "Merchant"
+        };
+
+        await AssignRole(assignRoleRequestDto);
+        
         WalletRequestDto walletRequestDto = _mapper.Map<WalletRequestDto>(userRegisterRequestDto);
         walletRequestDto.UserId = newUser.Id;
         walletRequestDto.FullName = $"{userRegisterRequestDto.FirstName} {userRegisterRequestDto.LastName}";
@@ -129,7 +137,7 @@ public class AuthService : IAuthService
             Status = "Logged successfully",
             Token = token,
             RefreshToken = refreshToken,
-            Expiration = DateTime.Now
+            Expiration = DateTime.UtcNow.AddMinutes(30)
         };
     }
 
