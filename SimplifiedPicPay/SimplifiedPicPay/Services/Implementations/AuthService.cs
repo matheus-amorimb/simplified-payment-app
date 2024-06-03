@@ -53,7 +53,7 @@ public class AuthService : IAuthService
 
     public async Task<string> CreateRole(string roleName)
     { 
-        await ValidateRoleName(roleName);
+        await ValidateRoleNameExists(roleName);
 
         var newRole = new IdentityRole<Guid>(roleName);
         var result = await _roleManager.CreateAsync(newRole);
@@ -67,11 +67,44 @@ public class AuthService : IAuthService
         return $"Role {roleName} added successfully";
     }
 
-    private async Task ValidateRoleName(string roleName)
+    public async Task<AssignRoleResponseDto> AssignRole(AssignRoleRequestDto assignRoleRequestDto)
+    {
+        var user = await _userManager.FindByNameAsync(assignRoleRequestDto.Email);
+        ValidateUserName(user);
+        await ValidateRoleNameNotExists(assignRoleRequestDto.Role);
+
+        var result = await _userManager.AddToRoleAsync(user, assignRoleRequestDto.Role);
+        
+        if (!result.Succeeded)
+        {
+            string errors = string.Join(" ", result.Errors.Select(e => e.Description));
+            throw new BadHttpRequestException(errors);
+        }
+
+        var userRoles = await _userManager.GetRolesAsync(user);
+        
+        AssignRoleResponseDto assignRoleResponseDto = new AssignRoleResponseDto()
+        {
+            Email = assignRoleRequestDto.Email,
+            Roles = string.Concat(string.Join(", ", userRoles.Select(role => role.ToString())), ".")
+        };
+        
+        return assignRoleResponseDto;
+    }
+
+    private async Task ValidateRoleNameExists(string roleName)
     {
         if ((await _roleManager.RoleExistsAsync(roleName)))
         {
             throw new BadHttpRequestException("Role already exists");
+        }
+    }    
+    
+    private async Task ValidateRoleNameNotExists(string roleName)
+    {
+        if (!(await _roleManager.RoleExistsAsync(roleName)))
+        {
+            throw new BadHttpRequestException("Role does not exist");
         }
     }
 

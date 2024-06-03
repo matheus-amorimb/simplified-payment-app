@@ -53,13 +53,35 @@ public class AuthController : ControllerBase
 
     [HttpPost]
     [Route("create-role")]
-    public async Task<ActionResult> CreateRole([FromBody] string roleName)
+    public async Task<ActionResult> CreateRole([FromBody] CreateRoleRequestDto createRole)
     {
-        var response = await _authService.CreateRole(roleName);
+        if (!ModelState.IsValid)
+        {
+            var errorMessage = ModelState.FirstOrDefault().Value?.Errors.FirstOrDefault()?.ErrorMessage;
+            throw new BadHttpRequestException(errorMessage);
+        }
+        
+        var response = await _authService.CreateRole(createRole.RoleName);
 
         return Ok(response);
 
     }
+
+    [HttpPost]
+    [Route("assign-role")]
+    public async Task<ActionResult<AssignRoleResponseDto>> AssignRole([FromBody] AssignRoleRequestDto assignRoleRequestDto)
+    {
+        if (!ModelState.IsValid)
+        {
+            var errorMessage = ModelState.FirstOrDefault().Value?.Errors.FirstOrDefault()?.ErrorMessage;
+            throw new BadHttpRequestException(errorMessage);
+        }
+        
+        var response = await _authService.AssignRole(assignRoleRequestDto);
+
+        return Ok(response);
+    }
+    
     
     
 }
