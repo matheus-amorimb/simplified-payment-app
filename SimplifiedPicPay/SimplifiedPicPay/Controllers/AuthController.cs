@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SimplifiedPicPay.Dtos;
@@ -52,6 +53,7 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Policy = "Admin")]
     [Route("create-role")]
     public async Task<ActionResult> CreateRole([FromBody] CreateRoleRequestDto createRole)
     {
@@ -68,6 +70,7 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Policy = "Admin")]
     [Route("assign-role")]
     public async Task<ActionResult<AssignRoleResponseDto>> AssignRole([FromBody] AssignRoleRequestDto assignRoleRequestDto)
     {
