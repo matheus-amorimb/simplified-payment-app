@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SimplifiedPicPay.Dtos;
 using SimplifiedPicPay.Models;
@@ -28,6 +29,7 @@ public class TransactionController : ControllerBase
     }
     
     [HttpPost("transaction")]
+    [Authorize(Policy = "User")]
     public async Task<ActionResult<TransactionResponseDto>> NewTransaction([FromBody] TransactionRequestDto transactionRequestDto)
     {
         if (!ModelState.IsValid)
