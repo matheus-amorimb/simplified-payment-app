@@ -1,8 +1,10 @@
+using System.Reflection;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using SimplifiedPicPay;
 using SimplifiedPicPay.Context;
@@ -81,7 +83,20 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("User", policyBuilder =>
     {
         policyBuilder.RequireRole("User");
+    });    
+    options.AddPolicy("UserOrAdmin", policyBuilder =>
+    {
+        policyBuilder.RequireRole("User", "Admin");
     });
+});
+
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Simplified Payment App", Version = "v1" });
+
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    c.IncludeXmlComments(xmlPath);
 });
 
 var app = builder.Build();
