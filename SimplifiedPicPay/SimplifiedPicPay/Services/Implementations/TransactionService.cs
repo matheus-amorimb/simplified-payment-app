@@ -22,17 +22,17 @@ public class TransactionService : ITransactionService
         _rabbitMqService = rabbitMqService;
     }
 
-    public async Task<IEnumerable<Transaction>> GetTransactionsByClient(Guid clientId)
+    public async Task<IEnumerable<Transaction>> GetTransactionsByWallet(Guid clientWalletId)
     {
-        IEnumerable<Transaction?> transactions = await _transactionRepository.GetByClient(clientId);
+        IEnumerable<Transaction?> transactions = await _transactionRepository.GetByClientWallet(clientWalletId);
 
         return transactions;
     }
 
     public async Task<Transaction> CreateTransaction(Transaction transaction)
     {
-        Wallet payerWallet = await _walletService.GetWalletById(transaction.PayerId);
-        Wallet payeeWallet = await _walletService.GetWalletById(transaction.PayeeId);
+        Wallet payerWallet = await _walletService.GetWalletById(transaction.PayerWalletId);
+        Wallet payeeWallet = await _walletService.GetWalletById(transaction.PayeeWalletId);
         
         //Check if payer exixts and it is a user
         ValidateWallet(payerWallet, nameof(TransactionParticipant.Payer));
@@ -53,6 +53,12 @@ public class TransactionService : ITransactionService
         _rabbitMqService.Publish(transactionNotificationDto, "transaction-confirmation", "transaction-confirmation");
 
         return transaction;
+    }
+
+    public async Task<IEnumerable<Transaction>> GetAllTransactions()
+    {
+        IEnumerable<Transaction?> transactions = await _transactionRepository.GetAll();
+        return transactions;
     }
 
     private async Task<Wallet> UpdateWalletBalance(Wallet wallet, float amount)
