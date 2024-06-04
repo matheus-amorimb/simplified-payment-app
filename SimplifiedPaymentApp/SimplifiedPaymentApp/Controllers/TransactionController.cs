@@ -94,8 +94,7 @@ public class TransactionController : ControllerBase
         
         var transactionCreated = await _transactionService.CreateTransaction(transaction);
         TransactionResponseDto transactionResponseDto = _mapper.Map<TransactionResponseDto>(transaction);
-        return Ok(transactionResponseDto);
-
+        return CreatedAtAction(nameof(NewTransaction), "transaction", transactionResponseDto);
     }
     
 }
