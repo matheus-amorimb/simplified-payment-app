@@ -5,7 +5,7 @@ namespace SimplifiedPicPay.Repositories.Interfaces;
 public interface ITransactionRepository
 {
     Task<IEnumerable<Transaction?>> GetAll();
-    Task<IEnumerable<Transaction?>> GetByClient(Guid userId);
+    Task<IEnumerable<Transaction?>> GetByClientWallet(Guid walletId);
     Task<Transaction?> GetById(Guid id);   
     Task<Transaction> Create(Transaction transaction);
     
