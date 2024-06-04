@@ -16,7 +16,7 @@ public class TransactionEmailExtension
         return emailContent;
     }
 
-    public static string PopulateTemplate(string template, TransactionNotification transactionNotification)
+    private static string PopulateTemplate(string template, TransactionNotification transactionNotification)
     {
         var utcTime = transactionNotification.Transaction.Timestamp;
         var brazilTimeZone = TimeZoneInfo.FindSystemTimeZoneById("E. South America Standard Time");

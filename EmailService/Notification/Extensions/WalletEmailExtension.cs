@@ -15,7 +15,7 @@ public class WalletEmailExtension
         return emailContent;
     }
 
-    public static string PopulateTemplate(string template, WalletNotification walletNotification)
+    private static string PopulateTemplate(string template, WalletNotification walletNotification)
     {
         return template
             .Replace("{{WalletId}}", walletNotification.Wallet.WalletId.ToString())
