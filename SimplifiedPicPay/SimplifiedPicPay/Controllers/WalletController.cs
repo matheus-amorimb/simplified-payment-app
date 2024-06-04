@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SimplifiedPicPay.Dtos;
 using SimplifiedPicPay.Models;
@@ -19,6 +20,10 @@ public class WalletController : ControllerBase
         _mapper = mapper;
     }
 
+    /// <summary>
+    /// Retrieves all wallets. [Admin Only]
+    /// </summary>
+    [Authorize(Policy = "AdminOnly")]
     [HttpGet("wallets")]
     public async Task<ActionResult<IEnumerable<WalletResponseDto>>> GetWallets()
     {
@@ -27,6 +32,10 @@ public class WalletController : ControllerBase
         return Ok(walletsGetDto);
     }
     
+    /// <summary>
+    /// Creates a new wallet. [Admin Only]
+    /// </summary>
+    [Authorize(Policy = "AdminOnly")]
     [HttpPost("wallet")]
     public async Task<ActionResult<WalletResponseDto>> CreateWallet([FromBody] WalletRequestDto walletRequestDto)
     {
