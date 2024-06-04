@@ -5,6 +5,7 @@ using SimplifiedPicPay.Models;
 
 public interface ITransactionService
 {
-    public Task<IEnumerable<Transaction>> GetTransactionsByClient(Guid clientId);
+    public Task<IEnumerable<Transaction>> GetTransactionsByWallet(Guid clientWalletId);
     public  Task<Transaction> CreateTransaction(Transaction transaction);
+    public Task<IEnumerable<Transaction>> GetAllTransactions();
 }
