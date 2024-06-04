@@ -40,7 +40,7 @@ public class AuthController : ControllerBase
         var userCreated = await _authService.Register(userRegisterRequestDto);
         var responseDto = _mapper.Map<UserRegisterResponseDto>(userCreated);
         
-        return Ok(responseDto);
+        return CreatedAtAction(nameof(SignUp), "register", responseDto);
     }
 
     /// <summary>
@@ -58,7 +58,7 @@ public class AuthController : ControllerBase
 
         var userLogged = await _authService.LogIn(userLoginRequestDto);
 
-        return userLogged;
+        return CreatedAtAction(nameof(LogIn), "login", userLogged);
     }
 
     /// <summary>
@@ -77,7 +77,7 @@ public class AuthController : ControllerBase
         
         var response = await _authService.CreateRole(createRole.RoleName);
 
-        return Ok(response);
+        return CreatedAtAction(nameof(CreateRole), "create-role", response);
 
     }
 
@@ -97,7 +97,7 @@ public class AuthController : ControllerBase
         
         var response = await _authService.AssignRole(assignRoleRequestDto);
 
-        return Ok(response);
+        return CreatedAtAction(nameof(AssignRole), "assign-role", response);
     }
     
     
