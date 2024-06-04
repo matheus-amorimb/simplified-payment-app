@@ -12,8 +12,8 @@ using SimplifiedPicPay.Context;
 namespace SimplifiedPicPay.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240526204351_AddingTransactionTable")]
-    partial class AddingTransactionTable
+    [Migration("20240526201522_FixingWalletTable")]
+    partial class FixingWalletTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,35 +25,7 @@ namespace SimplifiedPicPay.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("SimplifiedPicPay.Models.Transaction", b =>
-                {
-                    b.Property<Guid>("TransactionId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("transaction_id");
-
-                    b.Property<Guid>("PayeeId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("payee_id");
-
-                    b.Property<Guid>("PayerId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("payer_id");
-
-                    b.Property<DateTime>("Timestamp")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("timestamp");
-
-                    b.Property<float>("Value")
-                        .HasColumnType("real")
-                        .HasColumnName("value");
-
-                    b.HasKey("TransactionId");
-
-                    b.ToTable("transaction");
-                });
-
-            modelBuilder.Entity("SimplifiedPicPay.Models.Wallet", b =>
+            modelBuilder.Entity("SimplifiedPaymentApp.Models.Wallet", b =>
                 {
                     b.Property<Guid>("WalletId")
                         .ValueGeneratedOnAdd()
@@ -82,7 +54,7 @@ namespace SimplifiedPicPay.Migrations
 
                     b.HasKey("WalletId");
 
-                    b.ToTable("wallet");
+                    b.ToTable("WALLET");
                 });
 #pragma warning restore 612, 618
         }

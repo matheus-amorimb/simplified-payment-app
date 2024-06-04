@@ -12,8 +12,8 @@ using SimplifiedPicPay.Context;
 namespace SimplifiedPicPay.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240601212531_UpdateIdentityAndAddWallet")]
-    partial class UpdateIdentityAndAddWallet
+    [Migration("20240601214902_UpdateIdentityAndAddWallet2")]
+    partial class UpdateIdentityAndAddWallet2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace SimplifiedPicPay.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("SimplifiedPicPay.Models.Transaction", b =>
+            modelBuilder.Entity("SimplifiedPaymentApp.Models.Transaction", b =>
                 {
                     b.Property<Guid>("TransactionId")
                         .ValueGeneratedOnAdd()
@@ -53,7 +53,7 @@ namespace SimplifiedPicPay.Migrations
                     b.ToTable("transaction");
                 });
 
-            modelBuilder.Entity("SimplifiedPicPay.Models.User", b =>
+            modelBuilder.Entity("SimplifiedPaymentApp.Models.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -65,7 +65,13 @@ namespace SimplifiedPicPay.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .HasColumnType("text");
 
+                    b.Property<string>("Cpf")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("cpf");
+
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<bool>("EmailConfirmed")
@@ -109,10 +115,16 @@ namespace SimplifiedPicPay.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Cpf")
+                        .IsUnique();
+
+                    b.HasIndex("Email")
+                        .IsUnique();
+
                     b.ToTable("User");
                 });
 
-            modelBuilder.Entity("SimplifiedPicPay.Models.Wallet", b =>
+            modelBuilder.Entity("SimplifiedPaymentApp.Models.Wallet", b =>
                 {
                     b.Property<Guid>("WalletId")
                         .ValueGeneratedOnAdd()
@@ -122,11 +134,6 @@ namespace SimplifiedPicPay.Migrations
                     b.Property<double>("Balance")
                         .HasColumnType("double precision")
                         .HasColumnName("balance");
-
-                    b.Property<string>("Cpf")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("cpf");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -139,16 +146,14 @@ namespace SimplifiedPicPay.Migrations
                         .HasColumnName("full_name");
 
                     b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasColumnName("user_id");
 
                     b.Property<int>("WalletTypeId")
                         .HasColumnType("integer")
                         .HasColumnName("wallet_type_id");
 
                     b.HasKey("WalletId");
-
-                    b.HasIndex("Cpf")
-                        .IsUnique();
 
                     b.HasIndex("Email")
                         .IsUnique();
@@ -161,7 +166,7 @@ namespace SimplifiedPicPay.Migrations
                     b.ToTable("wallet");
                 });
 
-            modelBuilder.Entity("SimplifiedPicPay.Models.WalletType", b =>
+            modelBuilder.Entity("SimplifiedPaymentApp.Models.WalletType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -193,15 +198,15 @@ namespace SimplifiedPicPay.Migrations
                         });
                 });
 
-            modelBuilder.Entity("SimplifiedPicPay.Models.Wallet", b =>
+            modelBuilder.Entity("SimplifiedPaymentApp.Models.Wallet", b =>
                 {
-                    b.HasOne("SimplifiedPicPay.Models.User", "User")
+                    b.HasOne("SimplifiedPaymentApp.Models.User", "User")
                         .WithOne("Wallet")
-                        .HasForeignKey("SimplifiedPicPay.Models.Wallet", "UserId")
+                        .HasForeignKey("SimplifiedPaymentApp.Models.Wallet", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SimplifiedPicPay.Models.WalletType", "WalletType")
+                    b.HasOne("SimplifiedPaymentApp.Models.WalletType", "WalletType")
                         .WithMany()
                         .HasForeignKey("WalletTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -212,7 +217,7 @@ namespace SimplifiedPicPay.Migrations
                     b.Navigation("WalletType");
                 });
 
-            modelBuilder.Entity("SimplifiedPicPay.Models.User", b =>
+            modelBuilder.Entity("SimplifiedPaymentApp.Models.User", b =>
                 {
                     b.Navigation("Wallet")
                         .IsRequired();

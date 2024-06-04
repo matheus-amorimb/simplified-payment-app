@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "4eFbsV/ddcizbqnUbcti7zIcCGUlv94ekpUQnl/LxkfjNlXS0/z5uUMeBPWc5ln6Wb5opw/uyXaKKEUNJ+JNQg==",
+  "dgSpecHash": "XQyQfJmBwUEUp83nhnL0/fg9WHuSDTdgG4F4fwj/vqqNuj3EBxpazzfBC3uSCSbFlw8iQ2fSVFCorfO+HjCe0g==",
   "success": true,
-  "projectFilePath": "/home/matheus/matheus-dev/code/projects/picpay-backend-challenge/SimplifiedPicPay/SimplifiedPicPay/SimplifiedPicPay.csproj",
+  "projectFilePath": "/home/matheus/matheus-dev/code/projects/picpay-backend-challenge/SimplifiedPicPay/SimplifiedPaymentApp/SimplifiedPaymentApp.csproj",
   "expectedPackageFiles": [
     "/home/matheus/.nuget/packages/automapper/13.0.1/automapper.13.0.1.nupkg.sha512",
     "/home/matheus/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",

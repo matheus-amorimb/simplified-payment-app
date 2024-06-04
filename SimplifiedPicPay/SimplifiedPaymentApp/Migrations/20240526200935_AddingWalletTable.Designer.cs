@@ -12,8 +12,8 @@ using SimplifiedPicPay.Context;
 namespace SimplifiedPicPay.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240526201522_FixingWalletTable")]
-    partial class FixingWalletTable
+    [Migration("20240526200935_AddingWalletTable")]
+    partial class AddingWalletTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace SimplifiedPicPay.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("SimplifiedPicPay.Models.Wallet", b =>
+            modelBuilder.Entity("SimplifiedPaymentApp.Models.Wallet", b =>
                 {
                     b.Property<Guid>("WalletId")
                         .ValueGeneratedOnAdd()
@@ -54,7 +54,7 @@ namespace SimplifiedPicPay.Migrations
 
                     b.HasKey("WalletId");
 
-                    b.ToTable("WALLET");
+                    b.ToTable("Wallet");
                 });
 #pragma warning restore 612, 618
         }

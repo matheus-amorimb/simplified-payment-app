@@ -155,7 +155,7 @@ namespace SimplifiedPicPay.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("SimplifiedPicPay.Models.Transaction", b =>
+            modelBuilder.Entity("SimplifiedPaymentApp.Models.Transaction", b =>
                 {
                     b.Property<Guid>("TransactionId")
                         .ValueGeneratedOnAdd()
@@ -183,7 +183,7 @@ namespace SimplifiedPicPay.Migrations
                     b.ToTable("transaction");
                 });
 
-            modelBuilder.Entity("SimplifiedPicPay.Models.User", b =>
+            modelBuilder.Entity("SimplifiedPaymentApp.Models.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -266,7 +266,7 @@ namespace SimplifiedPicPay.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("SimplifiedPicPay.Models.Wallet", b =>
+            modelBuilder.Entity("SimplifiedPaymentApp.Models.Wallet", b =>
                 {
                     b.Property<Guid>("WalletId")
                         .ValueGeneratedOnAdd()
@@ -308,7 +308,7 @@ namespace SimplifiedPicPay.Migrations
                     b.ToTable("wallet");
                 });
 
-            modelBuilder.Entity("SimplifiedPicPay.Models.WalletType", b =>
+            modelBuilder.Entity("SimplifiedPaymentApp.Models.WalletType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -351,7 +351,7 @@ namespace SimplifiedPicPay.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
                 {
-                    b.HasOne("SimplifiedPicPay.Models.User", null)
+                    b.HasOne("SimplifiedPaymentApp.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -360,7 +360,7 @@ namespace SimplifiedPicPay.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
                 {
-                    b.HasOne("SimplifiedPicPay.Models.User", null)
+                    b.HasOne("SimplifiedPaymentApp.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -375,7 +375,7 @@ namespace SimplifiedPicPay.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SimplifiedPicPay.Models.User", null)
+                    b.HasOne("SimplifiedPaymentApp.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -384,22 +384,22 @@ namespace SimplifiedPicPay.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
                 {
-                    b.HasOne("SimplifiedPicPay.Models.User", null)
+                    b.HasOne("SimplifiedPaymentApp.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SimplifiedPicPay.Models.Wallet", b =>
+            modelBuilder.Entity("SimplifiedPaymentApp.Models.Wallet", b =>
                 {
-                    b.HasOne("SimplifiedPicPay.Models.User", "User")
+                    b.HasOne("SimplifiedPaymentApp.Models.User", "User")
                         .WithOne("Wallet")
-                        .HasForeignKey("SimplifiedPicPay.Models.Wallet", "UserId")
+                        .HasForeignKey("SimplifiedPaymentApp.Models.Wallet", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SimplifiedPicPay.Models.WalletType", "WalletType")
+                    b.HasOne("SimplifiedPaymentApp.Models.WalletType", "WalletType")
                         .WithMany()
                         .HasForeignKey("WalletTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -410,7 +410,7 @@ namespace SimplifiedPicPay.Migrations
                     b.Navigation("WalletType");
                 });
 
-            modelBuilder.Entity("SimplifiedPicPay.Models.User", b =>
+            modelBuilder.Entity("SimplifiedPaymentApp.Models.User", b =>
                 {
                     b.Navigation("Wallet")
                         .IsRequired();

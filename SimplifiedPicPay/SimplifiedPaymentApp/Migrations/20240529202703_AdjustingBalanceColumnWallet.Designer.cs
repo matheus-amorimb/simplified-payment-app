@@ -25,7 +25,7 @@ namespace SimplifiedPicPay.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("SimplifiedPicPay.Models.Transaction", b =>
+            modelBuilder.Entity("SimplifiedPaymentApp.Models.Transaction", b =>
                 {
                     b.Property<Guid>("TransactionId")
                         .ValueGeneratedOnAdd()
@@ -53,7 +53,7 @@ namespace SimplifiedPicPay.Migrations
                     b.ToTable("transaction");
                 });
 
-            modelBuilder.Entity("SimplifiedPicPay.Models.Wallet", b =>
+            modelBuilder.Entity("SimplifiedPaymentApp.Models.Wallet", b =>
                 {
                     b.Property<Guid>("WalletId")
                         .ValueGeneratedOnAdd()
@@ -96,7 +96,7 @@ namespace SimplifiedPicPay.Migrations
                     b.ToTable("wallet");
                 });
 
-            modelBuilder.Entity("SimplifiedPicPay.Models.WalletType", b =>
+            modelBuilder.Entity("SimplifiedPaymentApp.Models.WalletType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -128,9 +128,9 @@ namespace SimplifiedPicPay.Migrations
                         });
                 });
 
-            modelBuilder.Entity("SimplifiedPicPay.Models.Wallet", b =>
+            modelBuilder.Entity("SimplifiedPaymentApp.Models.Wallet", b =>
                 {
-                    b.HasOne("SimplifiedPicPay.Models.WalletType", "WalletType")
+                    b.HasOne("SimplifiedPaymentApp.Models.WalletType", "WalletType")
                         .WithMany()
                         .HasForeignKey("WalletTypeId")
                         .OnDelete(DeleteBehavior.Cascade)

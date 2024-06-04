@@ -7981,11 +7981,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/matheus/matheus-dev/code/projects/picpay-backend-challenge/SimplifiedPicPay/SimplifiedPicPay/SimplifiedPicPay.csproj",
-      "projectName": "SimplifiedPicPay",
-      "projectPath": "/home/matheus/matheus-dev/code/projects/picpay-backend-challenge/SimplifiedPicPay/SimplifiedPicPay/SimplifiedPicPay.csproj",
+      "projectUniqueName": "/home/matheus/matheus-dev/code/projects/picpay-backend-challenge/SimplifiedPicPay/SimplifiedPaymentApp/SimplifiedPaymentApp.csproj",
+      "projectName": "SimplifiedPaymentApp",
+      "projectPath": "/home/matheus/matheus-dev/code/projects/picpay-backend-challenge/SimplifiedPicPay/SimplifiedPaymentApp/SimplifiedPaymentApp.csproj",
       "packagesPath": "/home/matheus/.nuget/packages/",
-      "outputPath": "/home/matheus/matheus-dev/code/projects/picpay-backend-challenge/SimplifiedPicPay/SimplifiedPicPay/obj/",
+      "outputPath": "/home/matheus/matheus-dev/code/projects/picpay-backend-challenge/SimplifiedPicPay/SimplifiedPaymentApp/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/matheus/.nuget/NuGet/NuGet.Config"

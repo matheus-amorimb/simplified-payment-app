@@ -12,8 +12,8 @@ using SimplifiedPicPay.Context;
 namespace SimplifiedPicPay.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240527235041_RemodelingWalletEntity")]
-    partial class RemodelingWalletEntity
+    [Migration("20240601212531_UpdateIdentityAndAddWallet")]
+    partial class UpdateIdentityAndAddWallet
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace SimplifiedPicPay.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("SimplifiedPicPay.Models.Transaction", b =>
+            modelBuilder.Entity("SimplifiedPaymentApp.Models.Transaction", b =>
                 {
                     b.Property<Guid>("TransactionId")
                         .ValueGeneratedOnAdd()
@@ -53,7 +53,66 @@ namespace SimplifiedPicPay.Migrations
                     b.ToTable("transaction");
                 });
 
-            modelBuilder.Entity("SimplifiedPicPay.Models.Wallet", b =>
+            modelBuilder.Entity("SimplifiedPaymentApp.Models.User", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasColumnType("text");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("RefreshToken")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("RefreshTokenExpiryTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("User");
+                });
+
+            modelBuilder.Entity("SimplifiedPaymentApp.Models.Wallet", b =>
                 {
                     b.Property<Guid>("WalletId")
                         .ValueGeneratedOnAdd()
@@ -61,7 +120,8 @@ namespace SimplifiedPicPay.Migrations
                         .HasColumnName("wallet_id");
 
                     b.Property<double>("Balance")
-                        .HasColumnType("double precision");
+                        .HasColumnType("double precision")
+                        .HasColumnName("balance");
 
                     b.Property<string>("Cpf")
                         .IsRequired()
@@ -78,6 +138,9 @@ namespace SimplifiedPicPay.Migrations
                         .HasColumnType("text")
                         .HasColumnName("full_name");
 
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
                     b.Property<int>("WalletTypeId")
                         .HasColumnType("integer")
                         .HasColumnName("wallet_type_id");
@@ -90,12 +153,15 @@ namespace SimplifiedPicPay.Migrations
                     b.HasIndex("Email")
                         .IsUnique();
 
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
                     b.HasIndex("WalletTypeId");
 
                     b.ToTable("wallet");
                 });
 
-            modelBuilder.Entity("SimplifiedPicPay.Models.WalletType", b =>
+            modelBuilder.Entity("SimplifiedPaymentApp.Models.WalletType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -127,15 +193,29 @@ namespace SimplifiedPicPay.Migrations
                         });
                 });
 
-            modelBuilder.Entity("SimplifiedPicPay.Models.Wallet", b =>
+            modelBuilder.Entity("SimplifiedPaymentApp.Models.Wallet", b =>
                 {
-                    b.HasOne("SimplifiedPicPay.Models.WalletType", "WalletType")
+                    b.HasOne("SimplifiedPaymentApp.Models.User", "User")
+                        .WithOne("Wallet")
+                        .HasForeignKey("SimplifiedPaymentApp.Models.Wallet", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SimplifiedPaymentApp.Models.WalletType", "WalletType")
                         .WithMany()
                         .HasForeignKey("WalletTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("User");
+
                     b.Navigation("WalletType");
+                });
+
+            modelBuilder.Entity("SimplifiedPaymentApp.Models.User", b =>
+                {
+                    b.Navigation("Wallet")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
