@@ -25,6 +25,11 @@ public class WalletRepository : IWalletRepository
         return await _context.Wallet.FirstOrDefaultAsync(wallet => wallet.WalletId == id);
     }
 
+    public async Task<Wallet> GetByUserId(Guid userId)
+    {
+        return await _context.Wallet.FirstOrDefaultAsync(wallet => wallet.UserId == userId);
+    }
+
     public async Task<Wallet> Create(Wallet wallet)
     {
         await _context.Wallet.AddAsync(wallet);

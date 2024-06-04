@@ -26,6 +26,12 @@ public class WalletService : IWalletService
         return response;
     }
 
+    public async Task<Wallet> GetWalletByUserId(Guid userId)
+    {
+        var response = await _walletRepository.GetByUserId(userId);
+        return response;
+    }
+
     public async Task<IEnumerable<Wallet>> GetWallets()
     {
         var response = await _walletRepository.GetAll();
@@ -41,8 +47,6 @@ public class WalletService : IWalletService
         
         ValidateEmail(wallets, wallet.Email);
 
-        Console.WriteLine(wallet.FullName);
-        
         var response = await _walletRepository.Create(wallet);
         
         WalletResponseDto responseDto = _mapper.Map<WalletResponseDto>(response);

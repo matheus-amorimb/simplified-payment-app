@@ -7,6 +7,7 @@ public interface IWalletRepository
     Task<IEnumerable<Wallet>> GetAll();
 
     Task<Wallet> GetById(Guid id);
+    Task<Wallet> GetByUserId(Guid userId);
 
     Task<Wallet> Create(Wallet wallet);
     
