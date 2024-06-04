@@ -1,0 +1,203 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SimplifiedPaymentApp</name>
+    </assembly>
+    <members>
+        <member name="T:SimplifiedPicPay.Controllers.AuthController">
+            <summary>
+            Controller for authentication-related actions.
+            </summary>
+        </member>
+        <member name="M:SimplifiedPicPay.Controllers.AuthController.SignUp(SimplifiedPicPay.Dtos.UserRegisterRequestDto)">
+            <summary>
+            Registers a new user.
+            </summary>
+        </member>
+        <member name="M:SimplifiedPicPay.Controllers.AuthController.LogIn(SimplifiedPicPay.Dtos.UserLoginRequestDto)">
+            <summary>
+            Logs in a user.
+            </summary>
+        </member>
+        <member name="M:SimplifiedPicPay.Controllers.AuthController.CreateRole(SimplifiedPicPay.Dtos.CreateRoleRequestDto)">
+            <summary>
+            Creates a new role. [Admin Only]
+            </summary>
+        </member>
+        <member name="M:SimplifiedPicPay.Controllers.AuthController.AssignRole(SimplifiedPicPay.Dtos.AssignRoleRequestDto)">
+            <summary>
+            Assigns a role to a user. [Admin Only]
+            </summary>
+        </member>
+        <member name="M:SimplifiedPicPay.Controllers.TransactionController.GetTransactionsByClient">
+            <summary>
+            Retrieves transactions associated with the authenticated client. 
+            Administrators can view all transactions, while regular clients can only access their own transaction history.
+            </summary>
+        </member>
+        <member name="M:SimplifiedPicPay.Controllers.TransactionController.GetTransactionsByClient(System.Guid)">
+            <summary>
+            Retrieves transactions associated with the specified wallet. [Admin Only]
+            </summary>
+        </member>
+        <member name="M:SimplifiedPicPay.Controllers.TransactionController.NewTransaction(SimplifiedPicPay.Dtos.TransactionUserRequestDto)">
+            <summary>
+            Creates a new transaction. [Users and Admin Only]
+            </summary>
+        </member>
+        <member name="M:SimplifiedPicPay.Controllers.WalletController.GetWallets">
+            <summary>
+            Retrieves all wallets. [Admin Only]
+            </summary>
+        </member>
+        <member name="M:SimplifiedPicPay.Controllers.WalletController.CreateWallet(SimplifiedPicPay.Dtos.WalletRequestDto)">
+            <summary>
+            Creates a new wallet. [Admin Only]
+            </summary>
+        </member>
+        <member name="T:SimplifiedPicPay.Migrations.InitialMigration">
+            <inheritdoc />
+        </member>
+        <member name="M:SimplifiedPicPay.Migrations.InitialMigration.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:SimplifiedPicPay.Migrations.InitialMigration.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:SimplifiedPicPay.Migrations.InitialMigration.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:SimplifiedPicPay.Migrations.AddingWalletTable">
+            <inheritdoc />
+        </member>
+        <member name="M:SimplifiedPicPay.Migrations.AddingWalletTable.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:SimplifiedPicPay.Migrations.AddingWalletTable.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:SimplifiedPicPay.Migrations.AddingWalletTable.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:SimplifiedPicPay.Migrations.FixingWalletTable">
+            <inheritdoc />
+        </member>
+        <member name="M:SimplifiedPicPay.Migrations.FixingWalletTable.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:SimplifiedPicPay.Migrations.FixingWalletTable.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:SimplifiedPicPay.Migrations.FixingWalletTable.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:SimplifiedPicPay.Migrations.FixingWalletTable2">
+            <inheritdoc />
+        </member>
+        <member name="M:SimplifiedPicPay.Migrations.FixingWalletTable2.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:SimplifiedPicPay.Migrations.FixingWalletTable2.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:SimplifiedPicPay.Migrations.FixingWalletTable2.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:SimplifiedPicPay.Migrations.AddingTransactionTable">
+            <inheritdoc />
+        </member>
+        <member name="M:SimplifiedPicPay.Migrations.AddingTransactionTable.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:SimplifiedPicPay.Migrations.AddingTransactionTable.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:SimplifiedPicPay.Migrations.AddingTransactionTable.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:SimplifiedPicPay.Migrations.AddingWalletTypeTable">
+            <inheritdoc />
+        </member>
+        <member name="M:SimplifiedPicPay.Migrations.AddingWalletTypeTable.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:SimplifiedPicPay.Migrations.AddingWalletTypeTable.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:SimplifiedPicPay.Migrations.AddingWalletTypeTable.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:SimplifiedPicPay.Migrations.RemodelingWalletEntity">
+            <inheritdoc />
+        </member>
+        <member name="M:SimplifiedPicPay.Migrations.RemodelingWalletEntity.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:SimplifiedPicPay.Migrations.RemodelingWalletEntity.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:SimplifiedPicPay.Migrations.RemodelingWalletEntity.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:SimplifiedPicPay.Migrations.AdjustingBalanceColumnWallet">
+            <inheritdoc />
+        </member>
+        <member name="M:SimplifiedPicPay.Migrations.AdjustingBalanceColumnWallet.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:SimplifiedPicPay.Migrations.AdjustingBalanceColumnWallet.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:SimplifiedPicPay.Migrations.AdjustingBalanceColumnWallet.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:SimplifiedPicPay.Migrations.UpdateIdentityAndAddWallet">
+            <inheritdoc />
+        </member>
+        <member name="M:SimplifiedPicPay.Migrations.UpdateIdentityAndAddWallet.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:SimplifiedPicPay.Migrations.UpdateIdentityAndAddWallet.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:SimplifiedPicPay.Migrations.UpdateIdentityAndAddWallet.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:SimplifiedPicPay.Migrations.UpdateIdentityAndAddWallet2">
+            <inheritdoc />
+        </member>
+        <member name="M:SimplifiedPicPay.Migrations.UpdateIdentityAndAddWallet2.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:SimplifiedPicPay.Migrations.UpdateIdentityAndAddWallet2.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:SimplifiedPicPay.Migrations.UpdateIdentityAndAddWallet2.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:SimplifiedPicPay.Migrations.UpdateIdentityAndAddWallet3">
+            <inheritdoc />
+        </member>
+        <member name="M:SimplifiedPicPay.Migrations.UpdateIdentityAndAddWallet3.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:SimplifiedPicPay.Migrations.UpdateIdentityAndAddWallet3.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:SimplifiedPicPay.Migrations.UpdateIdentityAndAddWallet3.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:SimplifiedPicPay.Migrations.UpdateIdentityAndAddWallet4">
+            <inheritdoc />
+        </member>
+        <member name="M:SimplifiedPicPay.Migrations.UpdateIdentityAndAddWallet4.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:SimplifiedPicPay.Migrations.UpdateIdentityAndAddWallet4.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:SimplifiedPicPay.Migrations.UpdateIdentityAndAddWallet4.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+    </members>
+</doc>
