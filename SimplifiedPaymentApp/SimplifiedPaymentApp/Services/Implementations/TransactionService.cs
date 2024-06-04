@@ -15,11 +15,17 @@ public class TransactionService : ITransactionService
 
     private readonly RabbitMqService _rabbitMqService;
 
-    public TransactionService(IWalletService walletService, ITransactionRepository transactionRepository, RabbitMqService rabbitMqService)
+    private readonly HttpClient _httpClient;
+
+    private readonly ITransactionAuthService _transactionAuthService;
+
+    public TransactionService(IWalletService walletService, ITransactionRepository transactionRepository, RabbitMqService rabbitMqService, HttpClient httpClient, ITransactionAuthService transactionAuthService)
     {
         _walletService = walletService;
         _transactionRepository = transactionRepository;
         _rabbitMqService = rabbitMqService;
+        _httpClient = httpClient;
+        _transactionAuthService = transactionAuthService;
     }
 
     public async Task<IEnumerable<Transaction>> GetTransactionsByWallet(Guid clientWalletId)
@@ -34,16 +40,16 @@ public class TransactionService : ITransactionService
         Wallet payerWallet = await _walletService.GetWalletById(transaction.PayerWalletId);
         Wallet payeeWallet = await _walletService.GetWalletById(transaction.PayeeWalletId);
         
-        //Check if payer exixts and it is a user
         ValidateWallet(payerWallet, nameof(TransactionParticipant.Payer));
+        
         ValidateWallet(payeeWallet, nameof(TransactionParticipant.Payee));
 
-        //check if user balance is equal ou greater than current balance
         ValidateSufficientBalance(payerWallet, transaction.Value);
-        
-        //Update Payer balance
+
+        await _transactionAuthService.IsAuthorized();
+
         await UpdateWalletBalance(payerWallet, -transaction.Value);
-        //Update Payee balance
+        
         await UpdateWalletBalance(payeeWallet, transaction.Value);
 
         await _transactionRepository.Create(transaction);
