@@ -1,2 +1,3 @@
-# picpay-backend-challenge
-Backend Technical Challenge
+# Simplified Payment App
+
+Simplified Payment App based on PicPay Backend Challenge.
