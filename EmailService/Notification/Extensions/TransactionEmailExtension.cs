@@ -24,9 +24,11 @@ public class TransactionEmailExtension
         var cultureInfo = new CultureInfo("pt-BR");
         var formattedTime = localTime.ToString("dd/MMM/yyyy HH:mm:ss", cultureInfo);
         
+        string formattedValue = transactionNotification.Transaction.Value.ToString("N2", CultureInfo.GetCultureInfo("pt-BR"));
+        
         return template
             .Replace("{{PayeeFullName}}", transactionNotification.PayeeWallet.FullName)
-            .Replace("{{TransactionValue}}", transactionNotification.Transaction.Value.ToString())
+            .Replace("{{TransactionValue}}", formattedValue)
             .Replace("{{TransactionId}}", transactionNotification.Transaction.TransactionId.ToString())
             .Replace("{{TransactionDate}}", formattedTime);
     }
