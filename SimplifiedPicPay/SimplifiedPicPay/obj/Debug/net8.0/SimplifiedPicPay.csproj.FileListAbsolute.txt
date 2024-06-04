@@ -248,3 +248,5 @@
 /home/matheus/matheus-dev/code/projects/picpay-backend-challenge/SimplifiedPicPay/SimplifiedPicPay/obj/Debug/net8.0/SimplifiedPicPay.pdb
 /home/matheus/matheus-dev/code/projects/picpay-backend-challenge/SimplifiedPicPay/SimplifiedPicPay/obj/Debug/net8.0/SimplifiedPicPay.genruntimeconfig.cache
 /home/matheus/matheus-dev/code/projects/picpay-backend-challenge/SimplifiedPicPay/SimplifiedPicPay/obj/Debug/net8.0/ref/SimplifiedPicPay.dll
+/home/matheus/matheus-dev/code/projects/picpay-backend-challenge/SimplifiedPicPay/SimplifiedPicPay/bin/Debug/net8.0/SimplifiedPicPay.xml
+/home/matheus/matheus-dev/code/projects/picpay-backend-challenge/SimplifiedPicPay/SimplifiedPicPay/obj/Debug/net8.0/SimplifiedPicPay.xml
