@@ -13,6 +13,7 @@ public class GlobalExceptionHandler : IExceptionHandler
         {
             BadHttpRequestException badHttpRequestException => (StatusCodes.Status400BadRequest, badHttpRequestException.Message, "Bad Request"),
             UnauthorizedAccessException unauthorizedAccessException => (StatusCodes.Status401Unauthorized, unauthorizedAccessException.Message, "Unauthorized"),
+            HttpRequestException httpRequestException => (StatusCodes.Status500InternalServerError, httpRequestException.Message, "Internal Server Error"),
             _ => (500, "Something went wrong", "Internal Error")
         };
 
