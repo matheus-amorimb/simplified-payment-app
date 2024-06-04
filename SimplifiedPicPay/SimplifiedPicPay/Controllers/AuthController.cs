@@ -8,6 +8,9 @@ using SimplifiedPicPay.Services;
 
 namespace SimplifiedPicPay.Controllers;
 
+/// <summary>
+/// Controller for authentication-related actions.
+/// </summary>
 [Controller]
 [Route("v1/picpay")]
 public class AuthController : ControllerBase
@@ -21,6 +24,9 @@ public class AuthController : ControllerBase
         _mapper = mapper;
     }
     
+    /// <summary>
+    /// Registers a new user.
+    /// </summary>
     [HttpPost]
     [Route("register")]
     public async Task<ActionResult<UserRegisterResponseDto>> SignUp([FromBody] UserRegisterRequestDto userRegisterRequestDto)
@@ -37,6 +43,9 @@ public class AuthController : ControllerBase
         return Ok(responseDto);
     }
 
+    /// <summary>
+    /// Logs in a user.
+    /// </summary>
     [HttpPost]
     [Route("login")]
     public async Task<ActionResult<UserLoginResponseDto>> LogIn([FromBody] UserLoginRequestDto userLoginRequestDto)
@@ -52,6 +61,9 @@ public class AuthController : ControllerBase
         return userLogged;
     }
 
+    /// <summary>
+    /// Creates a new role. [Admin Only]
+    /// </summary>
     [HttpPost]
     [Authorize(Policy = "Admin")]
     [Route("create-role")]
@@ -69,6 +81,9 @@ public class AuthController : ControllerBase
 
     }
 
+    /// <summary>
+    /// Assigns a role to a user. [Admin Only]
+    /// </summary>
     [HttpPost]
     [Authorize(Policy = "Admin")]
     [Route("assign-role")]
