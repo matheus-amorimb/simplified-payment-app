@@ -40,4 +40,9 @@ public class TransactionRepository : ITransactionRepository
 
         return transaction;
     }
+    
+    public async Task SaveChanges()
+    {
+        await _context.SaveChangesAsync();
+    }
 }
