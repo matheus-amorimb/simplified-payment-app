@@ -18,11 +18,11 @@ public class Transaction
     
     [Required]
     [Column("payer_id")]
-    public Guid PayerId { get; set; }    
+    public Guid PayerWalletId { get; set; }    
     
     [Required]
     [Column("payee_id")]
-    public Guid PayeeId { get; set; }
+    public Guid PayeeWalletId { get; set; }
 
     [Required] 
     [JsonIgnore]
