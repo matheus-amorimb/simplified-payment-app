@@ -31,7 +31,6 @@ public class RabbitMqService : IWalletConfirmartionEmailService
         var payload = JsonConvert.SerializeObject(data);
         var body = Encoding.UTF8.GetBytes(payload);
 
-        Console.WriteLine($"{data.GetType().Name} Published");
         channel.BasicPublish(exchange: "",
             routingKey: routingKey,
             basicProperties: null,
