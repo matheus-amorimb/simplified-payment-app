@@ -42,6 +42,7 @@ builder.Services.AddServices();
 builder.Services.AddRabbitMqService(builder.Configuration);
 builder.Services.AddAutoMappers();
 builder.Services.AddControllers();
+builder.Services.AddHttpClients();
 
 JsonConvert.DefaultSettings = () => new JsonSerializerSettings {
     Formatting = Newtonsoft.Json.Formatting.Indented,

@@ -12,6 +12,7 @@ public static class ServiceExtensions
         services.AddScoped<ITransactionService, TransactionService>();
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<ITransactionAuthService, TransactionAuthService>();
 
         return services;
     }    
@@ -29,6 +30,16 @@ public static class ServiceExtensions
         var hostName = configuration["RabbitMQ:HostName"];
         services.AddSingleton<RabbitMqService>(_ => new RabbitMqService(hostName));
         
+        return services;
+    }
+
+    public static IServiceCollection AddHttpClients(this IServiceCollection services)
+    {
+        services.AddHttpClient("TransactionAuthService", client =>
+        {
+            client.BaseAddress = new Uri("https://util.devi.tools/api/v2/");
+        });
+
         return services;
     }
 }
