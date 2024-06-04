@@ -1,5 +1,6 @@
 using System.Reflection;
 using System.Text;
+using Figgle;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -112,4 +113,5 @@ app.UseAuthorization();
 app.UseExceptionHandler(_ => {});
 app.UseHttpsRedirection();
 app.MapControllers();
+Console.WriteLine(FiggleFonts.Standard.Render("Matheus Pay"));
 app.Run();

@@ -252,3 +252,4 @@
 /home/matheus/matheus-dev/code/projects/simplified-payment-app/SimplifiedPaymentApp/SimplifiedPaymentApp/obj/Debug/net8.0/SimplifiedPaymentApp.pdb
 /home/matheus/matheus-dev/code/projects/simplified-payment-app/SimplifiedPaymentApp/SimplifiedPaymentApp/obj/Debug/net8.0/SimplifiedPaymentApp.genruntimeconfig.cache
 /home/matheus/matheus-dev/code/projects/simplified-payment-app/SimplifiedPaymentApp/SimplifiedPaymentApp/obj/Debug/net8.0/ref/SimplifiedPaymentApp.dll
+/home/matheus/matheus-dev/code/projects/simplified-payment-app/SimplifiedPaymentApp/SimplifiedPaymentApp/bin/Debug/net8.0/Figgle.dll

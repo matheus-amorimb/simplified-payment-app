@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "KpPWN5rftbQ7g2hZACGveTztZAczZIIFWgfUGIsp4ezO4zoLgFDZlkq07aQ0sA2NikbkeC1cBbxY2TyqqN940A==",
+  "dgSpecHash": "ORx0Ln9vh9WffV1X4JHDGETOGKCwYVk8nfXQbDf0r07AgxzW0W/L/zIzNFtModODG9tQkQxoVoMpeJ7Hvl7S1A==",
   "success": true,
   "projectFilePath": "/home/matheus/matheus-dev/code/projects/simplified-payment-app/SimplifiedPaymentApp/SimplifiedPaymentApp/SimplifiedPaymentApp.csproj",
   "expectedPackageFiles": [
     "/home/matheus/.nuget/packages/automapper/13.0.1/automapper.13.0.1.nupkg.sha512",
+    "/home/matheus/.nuget/packages/figgle/0.5.1/figgle.0.5.1.nupkg.sha512",
     "/home/matheus/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
     "/home/matheus/.nuget/packages/microsoft.aspnetcore.authentication.jwtbearer/8.0.6/microsoft.aspnetcore.authentication.jwtbearer.8.0.6.nupkg.sha512",
     "/home/matheus/.nuget/packages/microsoft.aspnetcore.cryptography.internal/8.0.6/microsoft.aspnetcore.cryptography.internal.8.0.6.nupkg.sha512",

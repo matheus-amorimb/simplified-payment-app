@@ -42,6 +42,10 @@
               "target": "Package",
               "version": "[13.0.1, )"
             },
+            "Figgle": {
+              "target": "Package",
+              "version": "[0.5.1, )"
+            },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
               "version": "[8.0.6, )"
