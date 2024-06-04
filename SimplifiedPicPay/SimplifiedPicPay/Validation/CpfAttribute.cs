@@ -31,7 +31,6 @@ public class CpfAttribute : ValidationAttribute
         int remainder = sum % 11;
         int firstCheckDigit = (remainder < 2) ? 0 : (11 - remainder);
 
-        Console.WriteLine(firstCheckDigit);
         if (firstCheckDigit != (cpf[9] - '0'))
         {
             return new ValidationResult("CPF is invalid.");
@@ -45,7 +44,6 @@ public class CpfAttribute : ValidationAttribute
         remainder = sum % 11;
         int secondCheckDigit = (remainder < 2) ? 0 : (11 - remainder);
 
-        Console.WriteLine(secondCheckDigit);
         if (secondCheckDigit != (cpf[10] - '0'))
         {
             return new ValidationResult("CPF is invalid.");
