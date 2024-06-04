@@ -8,7 +8,7 @@ using SimplifiedPicPay.Services;
 
 namespace SimplifiedPicPay.Controllers;
 
-[Route("v1/picpay")]
+[Route("v1/matheuspay")]
 [ApiController]
 public class TransactionController : ControllerBase
 {

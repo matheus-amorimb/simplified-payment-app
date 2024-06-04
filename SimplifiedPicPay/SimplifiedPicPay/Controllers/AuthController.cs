@@ -12,7 +12,7 @@ namespace SimplifiedPicPay.Controllers;
 /// Controller for authentication-related actions.
 /// </summary>
 [Controller]
-[Route("v1/picpay")]
+[Route("v1/matheuspay")]
 public class AuthController : ControllerBase
 {
     private readonly IAuthService _authService;
