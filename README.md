@@ -46,10 +46,13 @@ Repositories are used to handle database actions in the project. They abstract a
    - RabbitMQ
 3. Navigate to the `SimplifiedPaymentApp` directory and update the database connection string in `appsettings.json`.
 4. Run the following commands to apply migrations and seed the database:
+
    ```bash
    dotnet ef database update
    ```
-5. Run the following command to start the backend server:
+   
+6. Run the following command to start the backend server:
+
    ```bash
    dotnet run
    ```
