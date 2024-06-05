@@ -24,7 +24,7 @@ Handles authentication-related actions such as user registration, login, role cr
 #### TransactionController
 Manages transactions, including retrieving transaction history for users and administrators and creating new transactions. Authorization is applied to ensure that users can only view and create transactions for their own wallets, while administrators have access to all transactions.
 
-### WalletController
+#### WalletController
 Manages wallets, including retrieving all wallets (admin-only) and creating new wallets (admin-only). Similar to the TransactionController, authorization is enforced to prevent users from accessing wallets that don't belong to them.
 
 ### Technologies Used
